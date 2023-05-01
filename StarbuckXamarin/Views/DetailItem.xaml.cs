@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace StarbuckXamarin
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace StarbuckXamarin.Views
 {
-    public partial class MainPage : Shell
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class DetailItem : ContentPage
     {
-        public MainPage()
+        public DetailItem()
         {
             InitializeComponent();
         }
