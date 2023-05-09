@@ -9,12 +9,12 @@ using Xamarin.Forms.Xaml;
 
 namespace StarbuckXamarin.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DetailItem : ContentPage
-    {
-        public DetailItem()
-        {
-            InitializeComponent();
-        }
-    }
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class NotificationsPage : ContentPage
+	{
+		public NotificationsPage ()
+		{
+			InitializeComponent ();
+		}
+	}
 }
