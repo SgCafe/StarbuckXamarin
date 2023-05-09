@@ -31,8 +31,6 @@ namespace StarbuckXamarin.Droid.Effects
             bottomView.ItemIconTintList = ColorStateList.ValueOf(Android.Graphics.Color.White);
 
             bottomView.SetPadding(0, 30, 0, 0);
-
-
         }
     }
 }

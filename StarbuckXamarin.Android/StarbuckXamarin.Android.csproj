@@ -61,6 +61,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\AndroidPlainEntryEffect.cs" />
     <Compile Include="Effects\MyShellBottomNavViewAppearanceTracker.cs" />
     <Compile Include="Effects\MyShellRenderer.cs" />
     <Compile Include="MainActivity.cs" />
