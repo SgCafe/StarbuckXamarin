@@ -3,6 +3,7 @@
     x:Class="StarbuckXamarin.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:StarbuckXamarin.Effects"
     Background="{StaticResource TertiaryBrush}"
     Shell.NavBarIsVisible="False">
 
@@ -33,9 +34,48 @@
                 <Image Source="shop_bag" />
             </Frame>
         </Grid>
+
+        <ScrollView
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Never"
+            Orientation="Vertical"
+            VerticalOptions="Fill"
+            VerticalScrollBarVisibility="Never">
+            <Grid RowDefinitions="auto,auto">
+                <StackLayout>
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource LblMedium}"
+                        Text="Our way of loving" />
+                    <Label
+                        Grid.Row="1"
+                        Style="{StaticResource LblMedium}"
+                        Text="you back" />
+
+                    <Grid>
+                        <Frame Style="{StaticResource SearchButton}">
+                            <Grid ColumnDefinitions="auto, *, *" ColumnSpacing="20">
+                                <Image
+                                    Grid.Column="0"
+                                    HorizontalOptions="Start"
+                                    Source="search.png" />
+
+                                <Entry Grid.Column="1" Style="{StaticResource EntrySearch}">
+                                    <Entry.Effects>
+                                        <effects:PlainEntry />
+                                    </Entry.Effects>
+                                </Entry>
+                                <Frame Grid.Column="2" Style="{StaticResource FilterButton}">
+                                    <Image Source="filter.png" />
+                                </Frame>
+                            </Grid>
+                        </Frame>
+
+                    </Grid>
+
+                </StackLayout>
+
+            </Grid>
+        </ScrollView>
     </Grid>
-
-
-
-
 </ContentPage>
