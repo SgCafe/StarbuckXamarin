@@ -5,20 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:StarbuckXamarin.Views">
 
-    <TabBar>
-        <Tab Icon="home.png" Route="homeShell">
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
-        </Tab>
-        <Tab Icon="wallet.png" Route="walletShell">
-            <ShellContent ContentTemplate="{DataTemplate views:WalletPage}" />
-        </Tab>
-        <Tab Icon="fav.png" Route="favShell">
-            <ShellContent ContentTemplate="{DataTemplate views:FavPage}" />
-        </Tab>
-        <Tab Icon="notification.png" Route="notificationShell">
-            <ShellContent ContentTemplate="{DataTemplate views:NotificationsPage}" />
-        </Tab>
-    </TabBar>
+
+    <ShellContent Route="HomePageShell">
+        <views:HomePage />
+    </ShellContent>
+
+    <ShellContent Route="DetailItem">
+        <views:DetailItem />
+    </ShellContent>
 
 
 </Shell>
