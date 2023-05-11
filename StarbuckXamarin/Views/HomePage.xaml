@@ -7,9 +7,7 @@
     Background="{StaticResource TertiaryBrush}"
     Shell.NavBarIsVisible="False">
 
-    <ContentPage.Resources>
-        <!--<Style TargetType="templates:CustomTabBar" />-->
-    </ContentPage.Resources>
+    <ContentPage.Resources />
 
     <Grid
         Margin="15,20,15,0"
@@ -68,30 +66,56 @@
                 </StackLayout>
 
                 <StackLayout Grid.Row="1">
-                    <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
-
+                    <ScrollView
+                        BackgroundColor="Transparent"
+                        HorizontalScrollBarVisibility="Never"
+                        Orientation="Horizontal">
                         <StackLayout
                             Padding="10"
                             BindableLayout.ItemsSource="{StaticResource CategoryFilter}"
                             Orientation="Horizontal"
-                            RadioButtonGroup.GroupName="Categories"
-                            RadioButtonGroup.SelectedValue="{Binding CategorySelectedValue}"
+                            RadioButtonGroup.GroupName="CategoriesFilter"
+                            RadioButtonGroup.SelectedValue="{Binding CategorySelectorPrimary}"
                             Spacing="10">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <RadioButton
-                                        x:Name="RadioCategory"
-                                        Content="{Binding .}"
-                                        Value="{Binding .}">
+                                    <RadioButton Content="{Binding .}" Value="{Binding .}">
                                         <RadioButton.ControlTemplate>
                                             <ControlTemplate>
-                                                <Grid HorizontalOptions="Start">
+                                                <Grid HorizontalOptions="FillAndExpand">
                                                     <Frame
+                                                        x:Name="Frame"
+                                                        Padding="10"
+                                                        BackgroundColor="{StaticResource Gray100}"
                                                         CornerRadius="25"
-                                                        HeightRequest="10"
-                                                        WidthRequest="30">
-                                                        <Label x:Name="CategoryLabel" Text="{TemplateBinding Content}" />
+                                                        HeightRequest="20"
+                                                        WidthRequest="95">
+                                                        <Label
+                                                            x:Name="CategoryLabel"
+                                                            FontFamily="RalewayMedium"
+                                                            FontSize="16"
+                                                            HorizontalOptions="Center"
+                                                            Text="{TemplateBinding Content}"
+                                                            VerticalOptions="Center" />
                                                     </Frame>
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroupList>
+                                                            <VisualStateGroup x:Name="CheckedSates">
+                                                                <VisualState x:Name="Checked">
+                                                                    <VisualState.Setters>
+                                                                        <Setter TargetName="Frame" Property="Frame.BackgroundColor" Value="{StaticResource Primary}" />
+                                                                        <Setter TargetName="CategoryLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                                                    </VisualState.Setters>
+                                                                </VisualState>
+                                                                <VisualState x:Name="Unchecked">
+                                                                    <VisualState.Setters>
+                                                                        <Setter TargetName="Frame" Property="Frame.BackgroundColor" Value="{StaticResource Gray100}" />
+                                                                        <Setter TargetName="CategoryLabel" Property="Label.TextColor" Value="{StaticResource Gray400}" />
+                                                                    </VisualState.Setters>
+                                                                </VisualState>
+                                                            </VisualStateGroup>
+                                                        </VisualStateGroupList>
+                                                    </VisualStateManager.VisualStateGroups>
                                                 </Grid>
                                             </ControlTemplate>
                                         </RadioButton.ControlTemplate>
@@ -100,6 +124,26 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
                     </ScrollView>
+
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="Start">
+                        <Label
+                            FontSize="22"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Popular"
+                            TextColor="{StaticResource Black}" />
+                        <Label
+                            FontSize="22"
+                            HorizontalOptions="End"
+                            Text="See All"
+                            TextColor="{StaticResource Primary}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView />
+                    </StackLayout>
                 </StackLayout>
             </Grid>
         </ScrollView>

@@ -87,7 +87,7 @@
         <x:Array x:Key="CategoryFilter" Type="{x:Type x:String}">
             <x:String>All</x:String>
             <x:String>Special</x:String>
-            <x:String>Expresso and Coffee</x:String>
+            <x:String>Expresso</x:String>
             <x:String>Frappuccino</x:String>
         </x:Array>
 
