@@ -41,16 +41,10 @@
             Orientation="Vertical"
             VerticalOptions="Fill"
             VerticalScrollBarVisibility="Never">
-            <Grid RowDefinitions="auto,auto">
-                <StackLayout>
-                    <Label
-                        Grid.Row="0"
-                        Style="{StaticResource LblMedium}"
-                        Text="Our way of loving" />
-                    <Label
-                        Grid.Row="1"
-                        Style="{StaticResource LblMedium}"
-                        Text="you back" />
+            <Grid RowDefinitions="auto">
+                <StackLayout Grid.Row="0">
+                    <Label Style="{StaticResource LblMedium}" Text="Our way of loving" />
+                    <Label Style="{StaticResource LblMedium}" Text="you back" />
 
                     <Grid>
                         <Frame Style="{StaticResource SearchButton}">
@@ -70,11 +64,43 @@
                                 </Frame>
                             </Grid>
                         </Frame>
-
                     </Grid>
-
                 </StackLayout>
 
+                <StackLayout Grid.Row="1">
+                    <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+
+                        <StackLayout
+                            Padding="10"
+                            BindableLayout.ItemsSource="{StaticResource CategoryFilter}"
+                            Orientation="Horizontal"
+                            RadioButtonGroup.GroupName="Categories"
+                            RadioButtonGroup.SelectedValue="{Binding CategorySelectedValue}"
+                            Spacing="10">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
+                                        x:Name="RadioCategory"
+                                        Content="{Binding .}"
+                                        Value="{Binding .}">
+                                        <RadioButton.ControlTemplate>
+                                            <ControlTemplate>
+                                                <Grid HorizontalOptions="Start">
+                                                    <Frame
+                                                        CornerRadius="25"
+                                                        HeightRequest="10"
+                                                        WidthRequest="30">
+                                                        <Label x:Name="CategoryLabel" Text="{TemplateBinding Content}" />
+                                                    </Frame>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </RadioButton.ControlTemplate>
+                                    </RadioButton>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
             </Grid>
         </ScrollView>
     </Grid>
