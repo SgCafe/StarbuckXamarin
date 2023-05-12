@@ -10,14 +10,11 @@ namespace StarbuckXamarin.Viewmodel
     {
         #region properties
         private ObservableCollection<Product> _coffeeList;
-
         public ObservableCollection<Product> CoffeeList
         {
             get => _coffeeList; 
             set => SetProperty(ref _coffeeList, value); 
         }
-
-
 
         private string _categorySelectorPrimary;
         public string CategorySelectorPrimary
