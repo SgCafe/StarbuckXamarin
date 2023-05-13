@@ -9,5 +9,9 @@ namespace StarbuckXamarin.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public double ValueTall { get; set; }
+        public string Description { get; set; }
+        public bool ProductFavItem { get; set; }
+
+        
     }
 }
