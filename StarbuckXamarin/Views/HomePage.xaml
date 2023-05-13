@@ -198,10 +198,26 @@
                                                                 </FormattedString>
                                                             </Label.FormattedText>
                                                         </Label>
-                                                        <Image
+                                                        <ImageButton
                                                             Margin="0,0,0,5"
-                                                            HorizontalOptions="End"
-                                                            Source="love_filled.png" />
+                                                            Command="{Binding ChangeImageFav}"
+                                                            CommandParameter="{Binding .}"
+                                                            HorizontalOptions="End">
+                                                            <ImageButton.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding ProductFavItem}"
+                                                                    TargetType="ImageButton"
+                                                                    Value="True">
+                                                                    <Setter Property="Source" Value="love_filled.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger
+                                                                    Binding="{Binding ProductFavItem}"
+                                                                    TargetType="ImageButton"
+                                                                    Value="False">
+                                                                    <Setter Property="Source" Value="love_default.png" />
+                                                                </DataTrigger>
+                                                            </ImageButton.Triggers>
+                                                        </ImageButton>
                                                     </StackLayout>
                                                 </StackLayout>
                                             </pancake:PancakeView.Content>

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace StarbuckXamarin.Viewmodel
 {
@@ -21,21 +23,40 @@ namespace StarbuckXamarin.Viewmodel
         {
             get => _categorySelectorPrimary;
             set => SetProperty(ref _categorySelectorPrimary, value);
-        }   
+        }
 
+        private bool _productFavItem;
+        public bool ProductFavItem
+        {
+            get => _productFavItem; 
+            set => SetProperty(ref _productFavItem , value); 
+        }
+
+        private string _imageSource;
+        public string ImageSource
+        {
+            get => _imageSource;
+            set => SetProperty(ref _imageSource, value);
+        }
 
         #endregion
 
         #region constructor
-        public HomePageViewmodel() 
+        public HomePageViewmodel()
         {
+            
             CategorySelectorPrimary = "All";
+            
             PopulateList();
+            ChangeImageFav = new Command(ExecuteChangeImageFavCommand);
+
         }
+
+        
         #endregion
 
         #region commands
-
+        public ICommand ChangeImageFav { get; set; }
         #endregion
 
         #region methods
@@ -47,15 +68,33 @@ namespace StarbuckXamarin.Viewmodel
                 {
                     Name = "Chocolate Frappuccino",
                     ValueTall = 20.00,
-                    Image = "Brigadeiro.png"
+                    Image = "Brigadeiro.png",
+                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                    ProductFavItem = false,
                 },
                 new Product
                 {
                     Name = "Tea Frappuccino",
                     ValueTall = 19.00,
-                    Image = "chaVerde.png"
+                    Image = "chaVerde.png",
+                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                    ProductFavItem = true,
                 }
             };
+        }
+
+        private void ExecuteChangeImageFavCommand()
+        {
+            ProductFavItem = !ProductFavItem;
+
+            if(ProductFavItem)
+            {
+                ImageSource = "love_filled.png";
+            }
+            else
+            {
+                ImageSource = "love_defaul.png";
+            }
         }
         #endregion
     }
