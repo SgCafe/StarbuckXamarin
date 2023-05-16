@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 	<item>
-		<color android:color="@color/ic_launcher_background"/>
+		<bitmap android:src="@drawable/splash_theme" />
 	</item>
 	
 	<item>
@@ -10,11 +10,6 @@
 			android:tileMode="disabled"
 			android:gravity="center" />
 	</item>
-	<item>
-		<bitmap
-			android:src="@drawable/frame"
-			android:tileMode="disabled"
-			android:gravity="center"/>
-	</item>
+	
 	
 </layer-list>
