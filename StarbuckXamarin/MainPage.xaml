@@ -6,6 +6,10 @@
     xmlns:views="clr-namespace:StarbuckXamarin.Views">
 
     <TabBar>
+
+        <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
+
+
         <Tab Icon="home.png" Route="homeShell">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>

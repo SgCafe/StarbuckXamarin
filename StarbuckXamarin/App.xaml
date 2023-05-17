@@ -91,5 +91,11 @@
             <x:String>Frappuccino</x:String>
         </x:Array>
 
+        <x:Array x:Key="SizeFilter" Type="{x:Type x:String}">
+            <x:String>Tall</x:String>
+            <x:String>Grande</x:String>
+            <x:String>Venti</x:String>
+        </x:Array>
+
     </Application.Resources>
 </Application>
