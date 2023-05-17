@@ -3,7 +3,16 @@
     x:Class="StarbuckXamarin.Views.DetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:templateButton="clr-namespace:StarbuckXamarin.Views.Templates"
     Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <templateButton:ButtonAddItem x:Key="buttonAddItemAA" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
     <Grid Padding="15,0,15,0" RowDefinitions="auto, 250">
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="auto">
             <Frame
@@ -32,8 +41,18 @@
                 BackgroundColor="{StaticResource CoffeeBg2}"
                 CornerRadius="15"
                 HasShadow="False">
-                <Image Source="chaVerde.png" />
+                <Image Margin="0,0,0,30" Source="chaVerde.png" />
+
+
             </Frame>
+
+            <templateButton:ButtonAddItem
+                Margin="0,0,0,20"
+                HeightRequest="35"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="End"
+                WidthRequest="110" />
+
         </Grid>
 
         <Grid Grid.Row="2" RowDefinitions="auto, auto, auto, auto">
@@ -58,7 +77,8 @@
             <Label
                 Grid.Row="2"
                 FontSize="16"
-                Text="Lorem ipsum dolor site amet, consectetur adipiscing eliL. Etiam ata mi vitae augue feugiat scelerisque in a eros." />
+                Text="Lorem ipsum dolor site amet, consectetur adipiscing eliL. Etiam ata mi vitae augue feugiat scelerisque in a eros."
+                TextColor="Black" />
 
             <Grid
                 Grid.Row="3"

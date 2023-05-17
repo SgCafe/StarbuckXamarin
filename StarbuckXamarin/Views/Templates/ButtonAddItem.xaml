@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="StarbuckXamarin.Views.Templates.ButtonAddItem"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Frame
+        Padding="0"
+        CornerRadius="20"
+        HasShadow="False">
+        <Grid BackgroundColor="White" ColumnDefinitions="*,*,*">
+            <ImageButton
+                Grid.Column="0"
+                Padding="10"
+                BackgroundColor="{StaticResource Primary}"
+                Clicked="count_less"
+                Command="{Binding}"
+                CornerRadius="17"
+                HorizontalOptions="Start"
+                Source="substract" />
+            <Label
+                x:Name="txtButton"
+                Grid.Column="1"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                Text="1"
+                TextColor="Black"
+                VerticalOptions="Center" />
+
+            <ImageButton
+                Grid.Column="2"
+                Padding="10"
+                BackgroundColor="{StaticResource Primary}"
+                Clicked="count_more"
+                CornerRadius="17"
+                HorizontalOptions="End"
+                Source="add.png" />
+        </Grid>
+    </Frame>
+</Grid>
