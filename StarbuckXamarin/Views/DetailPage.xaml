@@ -20,7 +20,11 @@
                 Margin="10,0,0,0"
                 HorizontalOptions="StartAndExpand"
                 Style="{StaticResource Elipse}">
-                <Image Source="back_arrow.png" />
+                <Image Source="back_arrow.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackPageButton}" />
+                    </Image.GestureRecognizers>
+                </Image>
             </Frame>
             <Image
                 Grid.Column="1"
