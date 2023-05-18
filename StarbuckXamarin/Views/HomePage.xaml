@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:effects="clr-namespace:StarbuckXamarin.Effects"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="HomePageView"
     Background="{StaticResource TertiaryBrush}"
     Shell.NavBarIsVisible="False">
 
@@ -30,7 +31,11 @@
                 Grid.Column="2"
                 HorizontalOptions="End"
                 Style="{StaticResource Elipse}">
-                <Image Source="shop_bag" />
+                <Image Source="shop_bag">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavCartCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
             </Frame>
         </Grid>
 
@@ -154,7 +159,6 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-
                                     <StackLayout Spacing="0">
                                         <Frame
                                             Padding="0"
@@ -163,7 +167,12 @@
                                             HasShadow="False"
                                             HeightRequest="200"
                                             WidthRequest="235">
-                                            <Image Source="{Binding Image}" />
+                                            <Image Source="{Binding Image}">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.NavItemCommand, Source={x:Reference HomePageView}}" CommandParameter="{Binding .}" />
+                                                </Image.GestureRecognizers>
+                                            </Image>
+
                                         </Frame>
 
                                         <pancake:PancakeView BackgroundColor="{StaticResource Tertiary}" CornerRadius="0,0,15,15">

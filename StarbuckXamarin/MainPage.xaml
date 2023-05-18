@@ -7,7 +7,7 @@
 
     <TabBar>
 
-        <ShellContent ContentTemplate="{DataTemplate views:CartPage}" />
+
 
 
         <Tab Icon="home.png" Route="homeShell">
@@ -17,12 +17,13 @@
             <ShellContent ContentTemplate="{DataTemplate views:WalletPage}" />
         </Tab>
         <Tab Icon="fav.png" Route="favShell">
-            <ShellContent ContentTemplate="{DataTemplate views:FavPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
         </Tab>
         <Tab Icon="notification.png" Route="notificationShell">
             <ShellContent ContentTemplate="{DataTemplate views:NotificationsPage}" />
         </Tab>
     </TabBar>
 
+    <ShellContent ContentTemplate="{DataTemplate views:CartPage}" Route="cartShell" />
 
 </Shell>

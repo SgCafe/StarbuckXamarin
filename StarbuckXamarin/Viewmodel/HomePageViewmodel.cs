@@ -49,14 +49,15 @@ namespace StarbuckXamarin.Viewmodel
             
             PopulateList();
             ChangeImageFav = new Command(ExecuteChangeImageFavCommand);
-
+            NavCartCommand = new Command(ExecuteNavCartCommand);
+            NavItemCommand = new Command(ExecuteNavItemCommand);
         }
-
-        
         #endregion
 
         #region commands
         public ICommand ChangeImageFav { get; set; }
+        public ICommand NavCartCommand { get; set; }
+        public ICommand NavItemCommand { get; set; }
         #endregion
 
         #region methods
@@ -95,6 +96,16 @@ namespace StarbuckXamarin.Viewmodel
             {
                 ImageSource = "love_defaul.png";
             }
+        }
+
+        private async void ExecuteNavCartCommand()
+        {
+            await Shell.Current.GoToAsync("///cartShell");
+        }
+
+        private async void ExecuteNavItemCommand()
+        {
+            await Shell.Current.GoToAsync("///favShell");
         }
         #endregion
     }

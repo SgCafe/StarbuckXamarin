@@ -11,6 +11,7 @@ namespace StarbuckXamarin.Models
         public double ValueTall { get; set; }
         public string Description { get; set; }
         public bool ProductFavItem { get; set; }
+        public string SizeCoffee { get; set; }
 
         
     }

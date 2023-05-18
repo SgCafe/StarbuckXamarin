@@ -4,10 +4,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:templates="clr-namespace:StarbuckXamarin.Views.Templates"
     Shell.NavBarIsVisible="False">
-    <ContentPage.Content>
 
-        <Grid RowDefinitions="auto">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <templates:ButtonAddItem x:Key="ButtonAdd" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,auto,auto,auto">
             <pancake:PancakeView>
                 <pancake:PancakeView.Shadow>
                     <pancake:DropShadow
@@ -17,6 +24,7 @@
                         Color="Black" />
                 </pancake:PancakeView.Shadow>
                 <Grid
+                    Grid.Row="0"
                     Margin="0,40,0,0"
                     ColumnDefinitions="auto, auto, *"
                     VerticalOptions="Start">
@@ -49,42 +57,90 @@
             <Grid
                 Grid.Row="1"
                 Margin="20,0,20,0"
-                RowDefinitions="auto,auto, auto">
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="auto,auto">
                 <Label
+                    Grid.Row="0"
                     Margin="10,30,0,16"
                     FontAttributes="Bold"
                     FontSize="18"
                     Text="Escolha o local de retirada"
                     TextColor="Black" />
 
-                <Frame
-                    Grid.Row="1"
-                    Margin="0,0,0,5"
-                    Padding="10"
-                    BorderColor="#DFE4EC"
-                    CornerRadius="14"
-                    HasShadow="False">
-                    <Grid>
-                        <Label
-                            Grid.Row="0"
-                            FontSize="14"
-                            Text="Horário de pegar seu produto"
-                            TextColor="#6F8094" />
+                <Grid Grid.Row="1" RowDefinitions="auto, auto">
+                    <Frame
+                        Grid.Row="0"
+                        Padding="10"
+                        BorderColor="#DFE4EC"
+                        CornerRadius="14"
+                        HasShadow="False"
+                        HeightRequest="55">
+                        <Grid>
+                            <Label
+                                Grid.Row="0"
+                                FontSize="14"
+                                Text="Horário de pegar seu produto"
+                                TextColor="#6F8094" />
+                            <Grid
+                                ColumnDefinitions="auto,auto,*"
+                                RowDefinitions="auto,auto"
+                                RowSpacing="15">
+                                <Image
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="0,0,0,3"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Start"
+                                    Source="clock.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <TimePicker
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    CharacterSpacing="0"
+                                    FontAttributes="Bold"
+                                    TextColor="Black"
+                                    Time="13:00"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Margin="0,0,0,3"
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    HorizontalOptions="End"
+                                    Text="Alterar"
+                                    TextColor="{StaticResource Primary}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                    </Frame>
+
+                    <Frame
+                        Grid.Row="1"
+                        Padding="10"
+                        BorderColor="#DFE4EC"
+                        CornerRadius="14"
+                        HasShadow="False"
+                        HeightRequest="50">
                         <Grid
-                            Margin="0,10,0,0"
+                            Margin="0,5,0,5"
                             ColumnDefinitions="auto,auto,*"
-                            RowDefinitions="auto,auto">
+                            RowDefinitions="auto,auto"
+                            VerticalOptions="Center">
                             <Image
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 HorizontalOptions="Start"
-                                Source="clock.png" />
-                            <TimePicker
+                                Source="house.png" />
+                            <Label
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                Margin="10,0,0,0"
                                 FontAttributes="Bold"
-                                TextColor="Black"
-                                Time="13:00" />
+                                FontSize="16"
+                                Text="Ipanema, Rio de Janeiro"
+                                TextColor="Black" />
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="2"
@@ -95,107 +151,119 @@
                                 TextColor="{StaticResource Primary}"
                                 VerticalOptions="Center" />
                         </Grid>
-                    </Grid>
-                </Frame>
-
-                <Frame
-                    Grid.Row="2"
-                    Padding="10"
-                    BorderColor="#DFE4EC"
-                    CornerRadius="14"
-                    HasShadow="False">
-                    <Grid
-                        Margin="0,5,0,5"
-                        ColumnDefinitions="auto,auto,*"
-                        RowDefinitions="auto,auto"
-                        VerticalOptions="Center">
-                        <Image
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            HorizontalOptions="Start"
-                            Source="house.png" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="10,0,0,0"
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            Text="Ipanema, Rio de Janeiro"
-                            TextColor="Black" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            FontAttributes="Bold"
-                            FontSize="18"
-                            HorizontalOptions="End"
-                            Text="Alterar"
-                            TextColor="{StaticResource Primary}"
-                            VerticalOptions="Center" />
-                    </Grid>
-                </Frame>
+                    </Frame>
+                </Grid>
             </Grid>
 
             <Grid
                 Grid.Row="2"
-                Margin="20,0,20,0"
-                ColumnDefinitions="*, *"
-                RowDefinitions="auto, auto">
+                Margin="20,20,20,0"
+                VerticalOptions="Start">
                 <Label
-                    Grid.Column="0"
                     FontAttributes="Bold"
-                    FontSize="16"
+                    FontSize="18"
+                    HorizontalOptions="Start"
                     Text="Lista de produtos"
                     TextColor="Black" />
                 <Label
-                    Grid.Column="1"
+                    FontSize="16"
                     HorizontalOptions="End"
-                    Text="Add more"
+                    Text="Adicionar Mais"
                     TextColor="{StaticResource Primary}" />
-
-                <Grid Grid.Row="1" Margin="0,20,0,0">
-                    <Grid
-                        Grid.Column="0"
-                        ColumnDefinitions="auto, auto"
-                        RowDefinitions="auto,auto,auto">
-                        <Frame
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Padding="0"
-                            BackgroundColor="{StaticResource Primary}"
-                            CornerRadius="150">
-                            <Image Source="chaVerde.png" />
-                        </Frame>
-                    </Grid>
+            </Grid>
 
 
-                    <Label
-                        Grid.Column="1"
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        Text="Chá verde"
-                        TextColor="Black" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        FontSize="16"
-                        Text="R$ 20.00"
-                        TextColor="Black"
-                        VerticalOptions="Start" />
+            <Grid Grid.Row="3" Margin="20,20,20,0">
+                <CollectionView ItemsSource="{Binding CoffeeList}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions=" auto, auto" RowDefinitions="auto, auto, auto">
+                                <Frame
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    CornerRadius="80"
+                                    HeightRequest="86"
+                                    WidthRequest="86">
+                                    <Image Source="{Binding Image}" />
 
-                    <Label />
-                </Grid>
+                                </Frame>
+                                <Grid
+                                    Grid.Column="1"
+                                    Margin="20,0,0,0"
+                                    ColumnDefinitions="auto"
+                                    RowDefinitions="auto, auto">
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Name}"
+                                        TextColor="Black" />
+                                    <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        ColumnDefinitions="auto, auto"
+                                        ColumnSpacing="15"
+                                        RowDefinitions="auto, auto">
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="16"
+                                            Text="{Binding ValueTall, StringFormat='R$ {00},00'}"
+                                            TextColor="Black" />
+
+                                        <Frame
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            BackgroundColor="{StaticResource Gray100}"
+                                            CornerRadius="20"
+                                            WidthRequest="120">
+                                            <templates:ButtonAddItem />
+                                        </Frame>
+
+                                        <Frame
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Padding="0"
+                                            BackgroundColor="{StaticResource Gray100}"
+                                            CornerRadius="5"
+                                            HeightRequest="40"
+                                            WidthRequest="60">
+                                            <Picker
+                                                Title="{Binding SizeCoffee}"
+                                                FontSize="14"
+                                                TitleColor="Black" />
+                                        </Frame>
+                                    </Grid>
+
+
+
+
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
 
             </Grid>
 
-            <Grid Grid.Row="3">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="Total"
-                    TextColor="Black" />
-            </Grid>
 
+            <Grid Grid.Row="4" VerticalOptions="EndAndExpand">
+                <Button
+                    Margin="20,0,20,10"
+                    Padding="0"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="4"
+                    HeightRequest="60"
+                    Text="Finalizar"
+                    VerticalOptions="End"
+                    WidthRequest="30" />
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
