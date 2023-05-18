@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="StarbuckXamarin.Views.CartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="auto">
+            <pancake:PancakeView>
+                <pancake:PancakeView.Shadow>
+                    <pancake:DropShadow
+                        BlurRadius="1"
+                        Opacity="0"
+                        Offset="10,10"
+                        Color="Black" />
+                </pancake:PancakeView.Shadow>
+                <Grid
+                    Margin="0,40,0,0"
+                    ColumnDefinitions="auto, auto, *"
+                    VerticalOptions="Start">
+                    <Frame Margin="20,0,0,10" Style="{StaticResource Elipse}">
+                        <ImageButton
+                            Grid.Column="0"
+                            BackgroundColor="Transparent"
+                            Command="{Binding BackHomePageCommand}"
+                            HorizontalOptions="Center"
+                            Source="back_arrow.png" />
+                    </Frame>
+
+                    <Label
+                        Grid.Column="1"
+                        Margin="15,0,0,10"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Detalhes do pedido"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center" />
+
+                    <Image
+                        Grid.Column="2"
+                        Margin="0,0,20,10"
+                        HorizontalOptions="End"
+                        Source="more.png" />
+                </Grid>
+            </pancake:PancakeView>
+
+            <Grid
+                Grid.Row="1"
+                Margin="20,0,20,0"
+                RowDefinitions="auto,auto, auto">
+                <Label
+                    Margin="10,30,0,16"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="Escolha o local de retirada"
+                    TextColor="Black" />
+
+                <Frame
+                    Grid.Row="1"
+                    Margin="0,0,0,5"
+                    Padding="10"
+                    BorderColor="#DFE4EC"
+                    CornerRadius="14"
+                    HasShadow="False">
+                    <Grid>
+                        <Label
+                            Grid.Row="0"
+                            FontSize="14"
+                            Text="Horário de pegar seu produto"
+                            TextColor="#6F8094" />
+                        <Grid
+                            Margin="0,10,0,0"
+                            ColumnDefinitions="auto,auto,*"
+                            RowDefinitions="auto,auto">
+                            <Image
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                Source="clock.png" />
+                            <TimePicker
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                TextColor="Black"
+                                Time="13:00" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HorizontalOptions="End"
+                                Text="Alterar"
+                                TextColor="{StaticResource Primary}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                    Grid.Row="2"
+                    Padding="10"
+                    BorderColor="#DFE4EC"
+                    CornerRadius="14"
+                    HasShadow="False">
+                    <Grid
+                        Margin="0,5,0,5"
+                        ColumnDefinitions="auto,auto,*"
+                        RowDefinitions="auto,auto"
+                        VerticalOptions="Center">
+                        <Image
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Source="house.png" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Ipanema, Rio de Janeiro"
+                            TextColor="Black" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="End"
+                            Text="Alterar"
+                            TextColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+            </Grid>
+
+            <Grid
+                Grid.Row="2"
+                Margin="20,0,20,0"
+                ColumnDefinitions="*, *"
+                RowDefinitions="auto, auto">
+                <Label
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="Lista de produtos"
+                    TextColor="Black" />
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    Text="Add more"
+                    TextColor="{StaticResource Primary}" />
+
+                <Grid Grid.Row="1" Margin="0,20,0,0">
+                    <Grid
+                        Grid.Column="0"
+                        ColumnDefinitions="auto, auto"
+                        RowDefinitions="auto,auto,auto">
+                        <Frame
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{StaticResource Primary}"
+                            CornerRadius="150">
+                            <Image Source="chaVerde.png" />
+                        </Frame>
+                    </Grid>
+
+
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        Text="Chá verde"
+                        TextColor="Black" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        Text="R$ 20.00"
+                        TextColor="Black"
+                        VerticalOptions="Start" />
+
+                    <Label />
+                </Grid>
+
+
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Total"
+                    TextColor="Black" />
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

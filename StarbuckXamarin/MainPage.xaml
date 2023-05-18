@@ -7,7 +7,7 @@
 
     <TabBar>
 
-        <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:CartPage}" />
 
 
         <Tab Icon="home.png" Route="homeShell">
