@@ -1,6 +1,7 @@
 # StarbuckXamarin
 
-Este projeto foi desenvolvido com intuido de aperfeiçoar a criação de UI utilizando o Xamarin.Forms
+Este projeto foi desenvolvido com intuido de aperfeiçoar a criação de UI utilizando o Xamarin.Forms.
+
 Ideia de projeto tirada do: https://www.snppts.dev/snippet/maui-starbucks-redesign
 
 # Tecnologias
