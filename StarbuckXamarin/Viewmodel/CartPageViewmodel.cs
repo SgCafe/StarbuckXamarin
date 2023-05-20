@@ -46,27 +46,27 @@ namespace StarbuckXamarin.Viewmodel
                     Name = "Chocolate Frappuccino",
                     ValueTall = 21.00,
                     Image = "Brigadeiro.png",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-                    ProductFavItem = false,
-                    SizeCoffee = "Grande"
+                    //Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                    //ProductFavItem = false,
+                    //SizeCoffee = "Grande"
                 },
                 new Product
                 {
                     Name = "Tea Frappuccino",
                     ValueTall = 19.00,
                     Image = "chaVerde.png",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-                    ProductFavItem = true,
-                    SizeCoffee = "Tall"
+                    //Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                    //ProductFavItem = true,
+                    //SizeCoffee = "Tall"
                 },
                 new Product
                 {
                     Name = "Caramelo Frappuccino",
                     ValueTall = 20.00,
                     Image = "Caramelo.png",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-                    ProductFavItem = true,
-                    SizeCoffee = "Venti"
+                    //Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                    //ProductFavItem = true,
+                    //SizeCoffee = "Venti"
                 }
             };
         }

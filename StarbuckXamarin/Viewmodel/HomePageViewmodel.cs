@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -44,9 +45,7 @@ namespace StarbuckXamarin.Viewmodel
         #region constructor
         public HomePageViewmodel()
         {
-            
             CategorySelectorPrimary = "All";
-            
             PopulateList();
             ChangeImageFav = new Command(ExecuteChangeImageFavCommand);
             NavCartCommand = new Command(ExecuteNavCartCommand);
@@ -105,7 +104,7 @@ namespace StarbuckXamarin.Viewmodel
 
         private async void ExecuteNavItemCommand()
         {
-            await Shell.Current.GoToAsync("///favShell");
+            await Shell.Current.GoToAsync("///detailShell");
         }
         #endregion
     }

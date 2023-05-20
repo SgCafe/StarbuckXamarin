@@ -26,6 +26,7 @@ namespace StarbuckXamarin.Viewmodel
 			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
 
+
         }
         #endregion
 

@@ -16,7 +16,7 @@
         <Tab Icon="wallet.png" Route="walletShell">
             <ShellContent ContentTemplate="{DataTemplate views:WalletPage}" />
         </Tab>
-        <Tab Icon="fav.png" Route="favShell">
+        <Tab Icon="fav.png" Route="detailShell">
             <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
         </Tab>
         <Tab Icon="notification.png" Route="notificationShell">

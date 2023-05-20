@@ -14,7 +14,7 @@
     <Grid
         Margin="15,20,15,0"
         HorizontalOptions="FillAndExpand"
-        RowDefinitions="auto"
+        RowDefinitions="auto, auto"
         VerticalOptions="FillAndExpand">
 
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*">
@@ -137,11 +137,13 @@
                         Orientation="Horizontal"
                         VerticalOptions="Start">
                         <Label
+                            FontFamily="RalewayMedium"
                             FontSize="22"
                             HorizontalOptions="StartAndExpand"
                             Text="Popular"
                             TextColor="{StaticResource Black}" />
                         <Label
+                            FontFamily="RalewayMedium"
                             FontSize="22"
                             HorizontalOptions="End"
                             Text="See All"
@@ -162,7 +164,7 @@
                                     <StackLayout Spacing="0">
                                         <Frame
                                             Padding="0"
-                                            BackgroundColor="#F3F1ED"
+                                            BackgroundColor="{StaticResource CoffeeBg2}"
                                             CornerRadius="15"
                                             HasShadow="False"
                                             HeightRequest="200"
@@ -190,6 +192,7 @@
                                                     HeightRequest="30"
                                                     WidthRequest="20">
                                                     <Label
+                                                        FontFamily="RalewayMedium"
                                                         FontSize="18"
                                                         Text="{Binding Name}"
                                                         TextColor="{StaticResource Black}" />
@@ -197,6 +200,7 @@
                                                     <StackLayout BackgroundColor="{StaticResource Tertiary}" Orientation="Horizontal">
                                                         <Label
                                                             Margin="0,0,0,5"
+                                                            FontFamily="PoppinsRegular"
                                                             FontSize="18"
                                                             HorizontalOptions="StartAndExpand"
                                                             TextColor="{StaticResource Primary}">
@@ -209,6 +213,7 @@
                                                         </Label>
                                                         <ImageButton
                                                             Margin="0,0,0,5"
+                                                            BackgroundColor="Transparent"
                                                             Command="{Binding ChangeImageFav}"
                                                             CommandParameter="{Binding .}"
                                                             HorizontalOptions="End">

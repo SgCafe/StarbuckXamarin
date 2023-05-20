@@ -62,11 +62,13 @@
         <Grid Grid.Row="2" RowDefinitions="auto, auto, auto, auto">
             <Label
                 Grid.Row="0"
+                FontFamily="RalewayMedium"
                 FontSize="20"
-                Text="Tea"
+                Text="Frappuccino"
                 TextColor="Black" />
             <Grid Grid.Row="1" VerticalOptions="Center">
                 <Label
+                    FontFamily="RalewayMedium"
                     FontSize="22"
                     Text="Tea Frappuccino"
                     TextColor="Black" />
@@ -75,11 +77,16 @@
                     Orientation="Horizontal"
                     VerticalOptions="Center">
                     <Image Source="star.png" />
-                    <Label FontSize="20" Text="4.5" />
+                    <Label
+                        FontFamily="PoppinsRegular"
+                        FontSize="20"
+                        Text="4.5"
+                        TextColor="Black" />
                 </StackLayout>
             </Grid>
             <Label
                 Grid.Row="2"
+                FontFamily="RalewayMedium"
                 FontSize="16"
                 Text="Lorem ipsum dolor site amet, consectetur adipiscing eliL. Etiam ata mi vitae augue feugiat scelerisque in a eros."
                 TextColor="Black" />
@@ -147,12 +154,14 @@
                                                     <VisualStateGroup x:Name="CheckedStates">
                                                         <VisualState x:Name="Checked">
                                                             <VisualState.Setters>
+                                                                <Setter TargetName="LabelStyle" Property="Label.FontFamily" Value="RalewayMedium" />
                                                                 <Setter TargetName="LabelStyle" Property="Label.TextColor" Value="{StaticResource Primary}" />
                                                                 <Setter TargetName="FrameStyle" Property="Frame.BackgroundColor" Value="{StaticResource Primary}" />
                                                             </VisualState.Setters>
                                                         </VisualState>
                                                         <VisualState x:Name="Unchecked">
                                                             <VisualState.Setters>
+                                                                <Setter TargetName="LabelStyle" Property="Label.FontFamily" Value="RalewayMedium" />
                                                                 <Setter TargetName="LabelStyle" Property="Label.TextColor" Value="{StaticResource Gray400}" />
                                                                 <Setter TargetName="FrameStyle" Property="Frame.BackgroundColor" Value="{StaticResource Gray100}" />
                                                             </VisualState.Setters>
