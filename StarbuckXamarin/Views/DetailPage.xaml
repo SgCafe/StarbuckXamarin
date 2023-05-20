@@ -192,11 +192,17 @@
                         Grid.Column="1"
                         Margin="0,0,0,20"
                         FontFamily="PoppinsRegular"
-                        FontSize="25"
+                        FontSize="24"
                         HorizontalOptions="Start"
-                        Text="$30.00"
                         TextColor="{StaticResource Primary}"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="R$" />
+                                <Span Text="19,00" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </Grid>
 
 

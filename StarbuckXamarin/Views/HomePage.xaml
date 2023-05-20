@@ -203,14 +203,8 @@
                                                             FontFamily="PoppinsRegular"
                                                             FontSize="18"
                                                             HorizontalOptions="StartAndExpand"
-                                                            TextColor="{StaticResource Primary}">
-                                                            <Label.FormattedText>
-                                                                <FormattedString>
-                                                                    <Span Text="$" />
-                                                                    <Span Text="{Binding ValueTall}" />
-                                                                </FormattedString>
-                                                            </Label.FormattedText>
-                                                        </Label>
+                                                            Text="{Binding ValueTall, StringFormat='R$ {00},00'}"
+                                                            TextColor="{StaticResource Primary}" />
                                                         <ImageButton
                                                             Margin="0,0,0,5"
                                                             BackgroundColor="Transparent"
