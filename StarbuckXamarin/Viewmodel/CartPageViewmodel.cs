@@ -11,6 +11,8 @@ namespace StarbuckXamarin.Viewmodel
     public class CartPageViewmodel : BaseViewmodel
     {
         #region properties
+        public INavigation Navigation;
+
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
@@ -20,10 +22,11 @@ namespace StarbuckXamarin.Viewmodel
         #endregion
 
         #region constructor
-        public CartPageViewmodel()
+        public CartPageViewmodel(INavigation navigation)
         {
             PopulateList();
             BackHomePageCommand = new Command(ExecuteBackHomePageCommand);
+            Navigation = navigation;
         }
         #endregion
 
@@ -34,7 +37,7 @@ namespace StarbuckXamarin.Viewmodel
         #region methods
         private async void ExecuteBackHomePageCommand()
         {
-            await Shell.Current.GoToAsync("///homeShell");
+            await Navigation.PopAsync();
         }
 
         private void PopulateList()

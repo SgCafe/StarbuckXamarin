@@ -11,7 +11,7 @@ namespace StarbuckXamarin.Views
 		public DetailPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new DetailPageViewmodel();
+			BindingContext = new DetailPageViewmodel(Navigation);
 		}
 	}
 }

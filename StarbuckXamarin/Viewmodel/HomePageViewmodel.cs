@@ -1,4 +1,5 @@
 ﻿using StarbuckXamarin.Models;
+using StarbuckXamarin.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ namespace StarbuckXamarin.Viewmodel
     public class HomePageViewmodel : BaseViewmodel
     {
         #region properties
+        public INavigation Navigation;
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
@@ -43,13 +45,14 @@ namespace StarbuckXamarin.Viewmodel
         #endregion
 
         #region constructor
-        public HomePageViewmodel()
+        public HomePageViewmodel(INavigation navigation)
         {
             CategorySelectorPrimary = "All";
             PopulateList();
             ChangeImageFav = new Command(ExecuteChangeImageFavCommand);
             NavCartCommand = new Command(ExecuteNavCartCommand);
             NavItemCommand = new Command(ExecuteNavItemCommand);
+            Navigation = navigation;
         }
         #endregion
 
@@ -99,12 +102,12 @@ namespace StarbuckXamarin.Viewmodel
 
         private async void ExecuteNavCartCommand()
         {
-            await Shell.Current.GoToAsync("///cartShell");
+            await Navigation.PushAsync(new CartPage());
         }
 
         private async void ExecuteNavItemCommand()
         {
-            await Shell.Current.GoToAsync("///detailShell");
+            await Navigation.PushAsync(new DetailPage());
         }
         #endregion
     }

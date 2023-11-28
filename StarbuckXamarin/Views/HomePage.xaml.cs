@@ -16,7 +16,7 @@ namespace StarbuckXamarin.Views
         public HomePage()
         {
             InitializeComponent();
-            BindingContext = new HomePageViewmodel();
+            BindingContext = new HomePageViewmodel(Navigation);
         }
     }
 }

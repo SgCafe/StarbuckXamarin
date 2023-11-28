@@ -6,24 +6,20 @@
     xmlns:views="clr-namespace:StarbuckXamarin.Views">
 
     <TabBar>
-
-
-
-
-        <Tab Icon="home.png" Route="homeShell">
+        <Tab Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
-        <Tab Icon="wallet.png" Route="walletShell">
+        <Tab Icon="wallet.png">
             <ShellContent ContentTemplate="{DataTemplate views:WalletPage}" />
         </Tab>
-        <Tab Icon="fav.png" Route="detailShell">
+        <Tab Icon="fav.png">
             <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
         </Tab>
-        <Tab Icon="notification.png" Route="notificationShell">
+        <Tab Icon="notification.png">
             <ShellContent ContentTemplate="{DataTemplate views:NotificationsPage}" />
         </Tab>
     </TabBar>
 
-    <ShellContent ContentTemplate="{DataTemplate views:CartPage}" Route="cartShell" />
+    <ShellContent ContentTemplate="{DataTemplate views:CartPage}" />
 
 </Shell>

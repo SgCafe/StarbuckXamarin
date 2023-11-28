@@ -10,6 +10,8 @@ namespace StarbuckXamarin.Viewmodel
     {
 
         #region properties
+        public INavigation Navigation;
+
         private string _sizeSelect;
 
 		public string SizeSelect
@@ -21,8 +23,9 @@ namespace StarbuckXamarin.Viewmodel
         #endregion
 
         #region constructor
-        public DetailPageViewmodel()
+        public DetailPageViewmodel(INavigation navigation)
 		{
+            Navigation = navigation;
 			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
 
@@ -37,7 +40,7 @@ namespace StarbuckXamarin.Viewmodel
         #region methods
         private async void ExecuteBackPageButtonCommand()
         {
-            await Shell.Current.GoToAsync("///homeShell");
+            await Navigation.PopAsync();
         }
         #endregion
     }

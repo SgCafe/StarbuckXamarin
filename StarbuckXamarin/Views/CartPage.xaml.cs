@@ -16,7 +16,7 @@ namespace StarbuckXamarin.Views
         public CartPage()
         {
             InitializeComponent();
-            BindingContext = new CartPageViewmodel();
+            BindingContext = new CartPageViewmodel(Navigation);
         }
     }
 }
