@@ -1,4 +1,5 @@
 ﻿using StarbuckXamarin.Models;
+using StarbuckXamarin.Services;
 using StarbuckXamarin.Views;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace StarbuckXamarin.Viewmodel
     {
         #region properties
         public INavigation Navigation;
+
+        private readonly IServiceProduct _serviceProduct;
+
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
@@ -28,77 +32,55 @@ namespace StarbuckXamarin.Viewmodel
             set => SetProperty(ref _categorySelectorPrimary, value);
         }
 
-        private bool _productFavItem;
-        public bool ProductFavItem
+        private bool _isFavorite = false;
+        public bool IsFavorite
         {
-            get => _productFavItem; 
-            set => SetProperty(ref _productFavItem , value); 
+            get => _isFavorite;
+            set => SetProperty(ref _isFavorite, value);
         }
-
-        private string _imageSource;
-        public string ImageSource
-        {
-            get => _imageSource;
-            set => SetProperty(ref _imageSource, value);
-        }
-
         #endregion
 
         #region constructor
         public HomePageViewmodel(INavigation navigation)
         {
+            _serviceProduct = new ServiceProduct();
             CategorySelectorPrimary = "All";
             PopulateList();
-            ChangeImageFav = new Command(ExecuteChangeImageFavCommand);
             NavCartCommand = new Command(ExecuteNavCartCommand);
             NavItemCommand = new Command(ExecuteNavItemCommand);
+            
             Navigation = navigation;
         }
         #endregion
 
         #region commands
-        public ICommand ChangeImageFav { get; set; }
         public ICommand NavCartCommand { get; set; }
         public ICommand NavItemCommand { get; set; }
+        public ICommand AddFavouriteCommand { get; set; }
         #endregion
 
         #region methods
-        private void PopulateList()
+        private async void PopulateList()
         {
-            CoffeeList = new ObservableCollection<Product>()
+            var coffee = await _serviceProduct.GetProductAsync();
+            if (coffee != null)
             {
-                new Product
+                CoffeeList = new ObservableCollection<Product>();
+                foreach (var item in coffee)
                 {
-                    Name = "Chocolate Frappuccino",
-                    ValueTall = 20.00,
-                    Image = "Brigadeiro.png",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-                    ProductFavItem = false,
-                },
-                new Product
-                {
-                    Name = "Tea Frappuccino",
-                    ValueTall = 19.00,
-                    Image = "chaVerde.png",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-                    ProductFavItem = true,
+                    CoffeeList.Add(new Product()
+                    {
+                        Name = item.Name,
+                        Image = item.Image,
+                        ValueTall = item.ValueTall,
+                        
+                    });
+                    
                 }
-            };
-        }
-
-        private void ExecuteChangeImageFavCommand()
-        {
-            ProductFavItem = !ProductFavItem;
-
-            if(ProductFavItem)
-            {
-                ImageSource = "love_filled.png";
-            }
-            else
-            {
-                ImageSource = "love_defaul.png";
             }
         }
+
+
 
         private async void ExecuteNavCartCommand()
         {
