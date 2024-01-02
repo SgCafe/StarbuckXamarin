@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarbuckXamarin.Services;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace StarbuckXamarin
             InitializeComponent();
 
             MainPage = new MainPage();
-
+            DependencyService.Register<IServiceProduct, ServiceProduct>();
            
         }
 
