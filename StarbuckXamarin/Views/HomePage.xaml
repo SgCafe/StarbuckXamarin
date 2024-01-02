@@ -3,13 +3,19 @@
     x:Class="StarbuckXamarin.Views.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:StarbuckXamarin.Resources.Converters"
     xmlns:effects="clr-namespace:StarbuckXamarin.Effects"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rating="clr-namespace:Rating;assembly=Rating"
     x:Name="HomePageView"
     Background="{StaticResource TertiaryBrush}"
     Shell.NavBarIsVisible="False">
 
-    <ContentPage.Resources />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid
         Margin="15,20,15,0"
@@ -203,12 +209,18 @@
                                                             FontFamily="PoppinsRegular"
                                                             FontSize="18"
                                                             HorizontalOptions="StartAndExpand"
-                                                            Text="{Binding ValueTall, StringFormat='R$ {00},00'}"
-                                                            TextColor="{StaticResource Primary}" />
+                                                            TextColor="{StaticResource Primary}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+
+                                                                    <Span Text="{Binding ValueTall, StringFormat='{0:C}'}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
                                                         <ImageButton
                                                             Margin="0,0,0,5"
                                                             BackgroundColor="Transparent"
-                                                            Command="{Binding ChangeImageFav}"
+                                                            Command="{Binding AddFavouriteCommand}"
                                                             CommandParameter="{Binding .}"
                                                             HorizontalOptions="End">
                                                             <ImageButton.Triggers>
@@ -226,6 +238,7 @@
                                                                 </DataTrigger>
                                                             </ImageButton.Triggers>
                                                         </ImageButton>
+
                                                     </StackLayout>
                                                 </StackLayout>
                                             </pancake:PancakeView.Content>
