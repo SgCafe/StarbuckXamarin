@@ -32,12 +32,6 @@ namespace StarbuckXamarin.Viewmodel
             set => SetProperty(ref _categorySelectorPrimary, value);
         }
 
-        private bool _isFavorite = false;
-        public bool IsFavorite
-        {
-            get => _isFavorite;
-            set => SetProperty(ref _isFavorite, value);
-        }
         #endregion
 
         #region constructor
@@ -48,9 +42,11 @@ namespace StarbuckXamarin.Viewmodel
             PopulateList();
             NavCartCommand = new Command(ExecuteNavCartCommand);
             NavItemCommand = new Command(ExecuteNavItemCommand);
-            
+            AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
             Navigation = navigation;
         }
+
+        
         #endregion
 
         #region commands
@@ -73,14 +69,16 @@ namespace StarbuckXamarin.Viewmodel
                         Name = item.Name,
                         Image = item.Image,
                         ValueTall = item.ValueTall,
-                        
                     });
-                    
                 }
             }
         }
 
-
+        private void ExecuteAddFavouriteCommand(Product prod)
+        {
+            prod.ProductFavItem = !prod.ProductFavItem;
+            System.Diagnostics.Debug.WriteLine("---------> item " + prod.Name + " is favourited or not: " + prod.ProductFavItem);
+        }
 
         private async void ExecuteNavCartCommand()
         {
