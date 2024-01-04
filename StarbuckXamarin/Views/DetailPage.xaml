@@ -45,7 +45,7 @@
                 BackgroundColor="{StaticResource CoffeeBg2}"
                 CornerRadius="15"
                 HasShadow="False">
-                <Image Margin="0,0,0,30" Source="chaVerde.png" />
+                <Image Margin="0,0,0,30" Source="{Binding ParametersReceived.Image}" />
 
 
             </Frame>
@@ -64,23 +64,23 @@
                 Grid.Row="0"
                 FontFamily="RalewayMedium"
                 FontSize="20"
-                Text="Frappuccino"
+                Text="{Binding ParametersReceived.CategoryName}"
                 TextColor="Black" />
             <Grid Grid.Row="1" VerticalOptions="Center">
                 <Label
                     FontFamily="RalewayMedium"
                     FontSize="22"
-                    Text="Tea Frappuccino"
+                    Text="{Binding ParametersReceived.Name}"
                     TextColor="Black" />
                 <StackLayout
                     HorizontalOptions="End"
                     Orientation="Horizontal"
                     VerticalOptions="Center">
-                    <Image Source="star.png" />
+                    <Image Margin="0,0,0,7" Source="star.png" />
                     <Label
                         FontFamily="PoppinsRegular"
                         FontSize="20"
-                        Text="4.5"
+                        Text="{Binding ParametersReceived.Quality, StringFormat='{0:F1}'}"
                         TextColor="Black" />
                 </StackLayout>
             </Grid>
@@ -194,18 +194,10 @@
                         FontFamily="PoppinsRegular"
                         FontSize="24"
                         HorizontalOptions="Start"
+                        Text="{Binding ValueCoffe, StringFormat='{0:c}'}"
                         TextColor="{StaticResource Primary}"
-                        VerticalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="R$" />
-                                <Span Text="19,00" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        VerticalOptions="Center" />
                 </Grid>
-
-
             </Grid>
             <Button
                 Grid.Row="4"

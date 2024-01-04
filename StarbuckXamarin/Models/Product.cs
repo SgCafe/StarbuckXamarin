@@ -10,22 +10,20 @@ namespace StarbuckXamarin.Models
 {
     public class Product : BaseViewmodel
     {
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
+        public string Name { get; set; } 
         public string Image { get; set; }
+        public double Quality { get; set; }
         [JsonProperty("Tall")]
         public double ValueTall { get; set; }
-        public string Description { get; set; }
+        public double Grande { get; set; }
+        public double Venti { get; set; }
         [JsonProperty("Fav")]
-        //public bool ProductFavItem { get; set; }
-
-        bool _productFavItem;
+        private bool _productFavItem;
         public bool ProductFavItem
         {
             get => _productFavItem;
             set => SetProperty(ref _productFavItem, value);
         }
-        public string SizeCoffee { get; set; }
-
-       
     }
 }

@@ -44,10 +44,13 @@ namespace StarbuckXamarin.Services
 
             return items.Select(i => new Product
             {
+                CategoryName = i.Object.CategoryName,
                 Name = i.Object.Name,
                 Image = i.Object.Image,
                 ValueTall = i.Object.ValueTall,
-                SizeCoffee = i.Object.SizeCoffee,
+                Grande = i.Object.Grande,
+                Venti = i.Object.Venti,
+                Quality = i.Object.Quality,
                 ProductFavItem = i.Object.ProductFavItem,
             }).ToList();
         }

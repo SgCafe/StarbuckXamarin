@@ -153,7 +153,11 @@
                         Margin="0,15,0,10"
                         HeightRequest="280"
                         Orientation="Horizontal">
-                        <CollectionView x:Name="mCollectionView" ItemsSource="{Binding CoffeeList}">
+                        <CollectionView
+                            x:Name="mCollectionView"
+                            ItemsSource="{Binding CoffeeList}"
+                            SelectedItem="{Binding SelectedProduct}"
+                            SelectionMode="Single">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout HorizontalItemSpacing="20" Orientation="Horizontal" />
                             </CollectionView.ItemsLayout>
@@ -167,11 +171,7 @@
                                             HasShadow="False"
                                             HeightRequest="200"
                                             WidthRequest="235">
-                                            <Image Source="{Binding Image}">
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding BindingContext.NavItemCommand, Source={x:Reference HomePageView}}" CommandParameter="{Binding .}" />
-                                                </Image.GestureRecognizers>
-                                            </Image>
+                                            <Image Source="{Binding Image}" />
 
                                         </Frame>
 
