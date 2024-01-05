@@ -100,10 +100,23 @@ namespace StarbuckXamarin.Viewmodel
             }
         }
 
-        private void ExecuteAddFavouriteCommand(Product prod)
+        private async void ExecuteAddFavouriteCommand(Product prod)
         {
-            prod.ProductFavItem = !prod.ProductFavItem;
-            System.Diagnostics.Debug.WriteLine("---------> item " + prod.Name + " is favourited or not: " + prod.ProductFavItem);
+            if (prod != null)
+            {
+                
+                string nameProd = prod.Name;
+                bool newFavValue = !prod.ProductFavItem;
+
+                var changeFavItem = await _serviceProduct.ChangeFavoriteItem(nameProd, newFavValue);
+
+                if (changeFavItem)
+                {
+                    prod.ProductFavItem = newFavValue;
+
+                    System.Diagnostics.Debug.WriteLine("---------> item " + prod.Name + " is favourited or not: " + prod.ProductFavItem);
+                }
+            }
         }
 
         private async void NavigateToDetailPage(Product product)

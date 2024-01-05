@@ -1,4 +1,5 @@
 ﻿using StarbuckXamarin.Models;
+using StarbuckXamarin.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,8 @@ namespace StarbuckXamarin.Viewmodel
 
         #region properties
         public INavigation Navigation;
+
+        private readonly IServiceProduct _serviceProduct;
 
         private string _sizeSelect;
 
@@ -29,7 +32,6 @@ namespace StarbuckXamarin.Viewmodel
         }
 
         private Product _parametersReceived;
-
         public Product ParametersReceived
         {
             get => _parametersReceived;
@@ -50,22 +52,46 @@ namespace StarbuckXamarin.Viewmodel
         #region constructor
         public DetailPageViewmodel(INavigation navigation, Dictionary<string, object> parameters)
 		{
+            _serviceProduct = new ServiceProduct();
             Navigation = navigation;
 			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
+            AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
             if (parameters.TryGetValue("Product", out object product) && product is Product)
             {
                 ParametersReceived = (Product)product;
             }
             UpdateValueCoffe();
         }
+
+        
         #endregion
 
         #region commands
         public ICommand BackPageButton { get; set; }
+        public ICommand AddFavouriteCommand { get; set; }
         #endregion
 
         #region methods
+        private async void ExecuteAddFavouriteCommand(Product prod)
+        {
+            if (prod != null)
+            {
+
+                string nameProd = prod.Name;
+                bool newFavValue = !prod.ProductFavItem;
+
+                var changeFavItem = await _serviceProduct.ChangeFavoriteItem(nameProd, newFavValue);
+
+                if (changeFavItem)
+                {
+                    prod.ProductFavItem = newFavValue;
+
+                    System.Diagnostics.Debug.WriteLine("---------> item " + prod.Name + " is favourited or not: " + prod.ProductFavItem);
+                }
+            }
+        }
+
         private void UpdateValueCoffe()
         {
             if (_parametersReceived != null)

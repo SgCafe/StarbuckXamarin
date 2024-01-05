@@ -35,7 +35,25 @@
                 Margin="0,0,10,0"
                 HorizontalOptions="End"
                 Style="{StaticResource Elipse}">
-                <Image Source="love_filled.png" />
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Command="{Binding AddFavouriteCommand}"
+                    CommandParameter="{Binding ParametersReceived}">
+                    <ImageButton.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ParametersReceived.ProductFavItem}"
+                            TargetType="ImageButton"
+                            Value="True">
+                            <Setter Property="Source" Value="love_filled.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding ParametersReceived.ProductFavItem}"
+                            TargetType="ImageButton"
+                            Value="False">
+                            <Setter Property="Source" Value="love_default.png" />
+                        </DataTrigger>
+                    </ImageButton.Triggers>
+                </ImageButton>
             </Frame>
         </Grid>
 

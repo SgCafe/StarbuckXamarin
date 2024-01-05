@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace StarbuckXamarin.Services
 {
@@ -29,7 +30,6 @@ namespace StarbuckXamarin.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -53,6 +53,39 @@ namespace StarbuckXamarin.Services
                 Quality = i.Object.Quality,
                 ProductFavItem = i.Object.ProductFavItem,
             }).ToList();
+        }
+
+        public async Task<bool> ChangeFavoriteItem(string nameProd, bool favProd)
+        {
+            try
+            {
+                var combinedItems = await GetProductAsync();
+                var itemUpdate = combinedItems.FirstOrDefault(i => i.Name == nameProd);
+
+                if (itemUpdate != null)
+                {
+                    itemUpdate.ProductFavItem = favProd;
+                    var category = itemUpdate.CategoryName;
+                    var productToUpdate = itemUpdate;
+
+                    await Client
+                        .Child("Cardapio")
+                        .Child(category)
+                        .Child(nameProd)
+                        .PutAsync(productToUpdate);
+
+                    return true;
+                }
+                else 
+                { 
+                    return false; 
+                }
+            }
+            catch (Exception ex)
+            {
+                 await Shell.Current.DisplayAlert("Error",$"Error changeFavoriteItem: {ex.Message}", "ok");
+                return false;
+            }
         }
     }
 }

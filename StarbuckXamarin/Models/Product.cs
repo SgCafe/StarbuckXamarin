@@ -18,7 +18,6 @@ namespace StarbuckXamarin.Models
         public double ValueTall { get; set; }
         public double Grande { get; set; }
         public double Venti { get; set; }
-        [JsonProperty("Fav")]
         private bool _productFavItem;
         public bool ProductFavItem
         {
