@@ -57,10 +57,7 @@ namespace StarbuckXamarin.Viewmodel
 			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
-            if (parameters.TryGetValue("Product", out object product) && product is Product)
-            {
-                ParametersReceived = (Product)product;
-            }
+            GetValuesParameters(parameters);
             UpdateValueCoffe();
         }
 
@@ -73,6 +70,14 @@ namespace StarbuckXamarin.Viewmodel
         #endregion
 
         #region methods
+        private void GetValuesParameters(Dictionary<string, object> parameters)
+        {
+            if (parameters.TryGetValue("Category", out object category) && category is Product)
+            {
+                ParametersReceived = (Product)category;
+            }
+        }
+
         private async void ExecuteAddFavouriteCommand(Product prod)
         {
             if (prod != null)
