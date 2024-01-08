@@ -182,7 +182,7 @@
                                         <pancake:PancakeView BackgroundColor="{StaticResource Tertiary}" CornerRadius="0,0,15,15">
                                             <pancake:PancakeView.Shadow>
                                                 <pancake:DropShadow
-                                                    BlurRadius="1"
+                                                    BlurRadius="2"
                                                     Opacity="1"
                                                     Offset="20,20"
                                                     Color="Black" />

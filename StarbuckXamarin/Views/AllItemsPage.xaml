@@ -11,13 +11,26 @@
             HorizontalOptions="Start"
             RowDefinitions="*"
             VerticalOptions="Center">
+
+            <StackLayout>
+                <Label
+                    FontFamily="PoppinsRegular"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Text="Todos os items"
+                    TextColor="Black" />
+            </StackLayout>
             <CollectionView
                 x:Name="mCollectionView"
+                Margin="0,30,0,0"
                 ItemsSource="{Binding CoffeeList}"
                 SelectedItem="{Binding SelectedProduct}"
                 SelectionMode="Single">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="20" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -34,12 +47,12 @@
                             </Frame>
 
                             <pancake:PancakeView
-                                Margin="0,10"
+                                Margin="5,-3,5,3"
                                 BackgroundColor="{StaticResource Tertiary}"
                                 CornerRadius="0,0,15,15">
                                 <pancake:PancakeView.Shadow>
                                     <pancake:DropShadow
-                                        BlurRadius="1"
+                                        BlurRadius="2"
                                         Opacity="1"
                                         Offset="20,20"
                                         Color="Black" />
