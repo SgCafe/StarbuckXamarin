@@ -26,9 +26,6 @@ namespace StarbuckXamarin.Views
             {
                 viewmodel.ExecuteLoadFavItems();
             }
-            {
-
-            }
         }
     }
 }
