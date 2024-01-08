@@ -72,7 +72,7 @@ namespace StarbuckXamarin.Viewmodel
         #region methods
         private void GetValuesParameters(Dictionary<string, object> parameters)
         {
-            if (parameters.TryGetValue("Category", out object category) && category is Product)
+            if (parameters.TryGetValue("Product", out object category) && category is Product)
             {
                 ParametersReceived = (Product)category;
             }
