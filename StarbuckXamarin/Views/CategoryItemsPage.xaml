@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="StarbuckXamarin.Views.CategoryItemsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
+    <ContentPage.Content>
+        <Grid
+            Margin="10,15,10,10"
+            ColumnDefinitions="*"
+            HorizontalOptions="Start"
+            RowDefinitions="*"
+            VerticalOptions="Center">
+
+            <StackLayout>
+                <Label
+                    FontFamily="PoppinsRegular"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ParametersReceived.CategoryName}"
+                    TextColor="Black" />
+            </StackLayout>
+            <CollectionView
+                x:Name="mCollectionView"
+                Margin="0,30,0,0"
+                ItemsSource="{Binding ItemsList}"
+                SelectedItem="{Binding SelectedProduct}"
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Spacing="0">
+                            <Frame
+                                Margin="5"
+                                Padding="0"
+                                BackgroundColor="{StaticResource CoffeeBg2}"
+                                CornerRadius="15"
+                                HasShadow="False"
+                                WidthRequest="150">
+                                <Image HeightRequest="140" Source="{Binding Image}" />
+
+                            </Frame>
+
+                            <pancake:PancakeView
+                                Margin="5,-3,5,3"
+                                BackgroundColor="{StaticResource Tertiary}"
+                                CornerRadius="0,0,15,15">
+                                <pancake:PancakeView.Shadow>
+                                    <pancake:DropShadow
+                                        BlurRadius="2"
+                                        Opacity="1"
+                                        Offset="20,20"
+                                        Color="Black" />
+                                </pancake:PancakeView.Shadow>
+                                <pancake:PancakeView.Content>
+                                    <StackLayout
+                                        Padding="10,0,10,30"
+                                        BackgroundColor="{StaticResource Tertiary}"
+                                        HeightRequest="30"
+                                        WidthRequest="20">
+                                        <Label
+                                            FontFamily="RalewayMedium"
+                                            FontSize="14"
+                                            Text="{Binding Name}"
+                                            TextColor="{StaticResource Black}" />
+
+                                        <StackLayout BackgroundColor="{StaticResource Tertiary}" Orientation="Horizontal">
+                                            <Label
+                                                Margin="0,0,0,5"
+                                                FontFamily="PoppinsRegular"
+                                                FontSize="14"
+                                                HorizontalOptions="StartAndExpand"
+                                                Text="{Binding ValueTall, StringFormat='{0:C}'}"
+                                                TextColor="{StaticResource Primary}" />
+                                            <ImageButton
+                                                Padding="0,0,5,20"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Path=BindingContext.AddFavouriteCommand, Source={Reference mCollectionView}}"
+                                                CommandParameter="{Binding .}"
+                                                HeightRequest="40"
+                                                WidthRequest="40">
+                                                <ImageButton.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding ProductFavItem}"
+                                                        TargetType="ImageButton"
+                                                        Value="True">
+                                                        <Setter Property="Source" Value="love_filled.png" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding ProductFavItem}"
+                                                        TargetType="ImageButton"
+                                                        Value="False">
+                                                        <Setter Property="Source" Value="love_default.png" />
+                                                    </DataTrigger>
+                                                </ImageButton.Triggers>
+                                            </ImageButton>
+
+                                        </StackLayout>
+                                    </StackLayout>
+                                </pancake:PancakeView.Content>
+                            </pancake:PancakeView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
