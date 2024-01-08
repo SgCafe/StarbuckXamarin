@@ -18,6 +18,14 @@ namespace StarbuckXamarin.Viewmodel
 
         private readonly IServiceProduct _serviceProduct;
 
+        private ObservableCollection<Product> _categoryFilter;
+
+        public ObservableCollection<Product> CategoryFilter
+        {
+            get => _categoryFilter;
+            set => SetProperty(ref _categoryFilter, value);
+        }
+
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
@@ -25,11 +33,18 @@ namespace StarbuckXamarin.Viewmodel
             set => SetProperty(ref _coffeeList, value); 
         }
 
-        private string _categorySelectorPrimary;
-        public string CategorySelectorPrimary
+        private Product _categorySelector;
+        public Product CategorySelector
         {
-            get => _categorySelectorPrimary;
-            set => SetProperty(ref _categorySelectorPrimary, value);
+            get => _categorySelector;
+            set
+            {
+                if (SetProperty(ref _categorySelector, value) && value != null)
+                {
+                    NavigateToCategory(value);
+                    CategorySelector = null;
+                }
+            }
         }
 
         private Product _selectedProduct;
@@ -59,8 +74,8 @@ namespace StarbuckXamarin.Viewmodel
         public HomePageViewmodel(INavigation navigation)
         {
             _serviceProduct = new ServiceProduct();
-            CategorySelectorPrimary = "All";
             PopulateList();
+            LoadCategoriesFilter();
             NavCartCommand = new Command(ExecuteNavCartCommand);
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
             NavToAllItemsPageCommand = new Command(ExecuteNavToAllItemsPageCommand);
@@ -100,6 +115,25 @@ namespace StarbuckXamarin.Viewmodel
             }
         }
 
+        private void LoadCategoriesFilter()
+        {
+            CategoryFilter = new ObservableCollection<Product>
+            {
+                new Product()
+                {
+                    CategoryName = "Especiais"
+                },
+                new Product()
+                {
+                    CategoryName = "Expressos e Cafés"
+                },
+                new Product()
+                {
+                    CategoryName = "Frappuccino"
+                },
+            };
+        }
+
         private async void ExecuteAddFavouriteCommand(Product prod)
         {
             if (prod != null)
@@ -123,10 +157,20 @@ namespace StarbuckXamarin.Viewmodel
         {
             PopulateList();
         }
-
         private async void ExecuteNavToAllItemsPageCommand()
         {
             await Navigation.PushAsync(new AllItemsPage());
+        }
+
+        private async void NavigateToCategory(Product category)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                {"Category", category }
+            };
+
+            CategoryItemsPage categoryPage = new CategoryItemsPage(parameters);
+            await Navigation.PushAsync(categoryPage);
         }
 
         private async void NavigateToDetailPage(Product product)
