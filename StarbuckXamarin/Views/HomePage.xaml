@@ -145,7 +145,11 @@
                             FontSize="22"
                             HorizontalOptions="End"
                             Text="See All"
-                            TextColor="{StaticResource Primary}" />
+                            TextColor="{StaticResource Primary}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavToAllItemsPageCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
 
                     <StackLayout

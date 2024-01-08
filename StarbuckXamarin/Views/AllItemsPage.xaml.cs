@@ -11,21 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace StarbuckXamarin.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FavPage : ContentPage
+	public partial class AllItemsPage : ContentPage
 	{
-		public FavPage ()
+		public AllItemsPage ()
 		{
 			InitializeComponent ();
-			BindingContext = new FavViewmodel(Navigation);
+			BindingContext = new AllItemsViewmodel(Navigation);
 		}
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-			if (BindingContext is FavViewmodel viewmodel) 
-			{
-				viewmodel.ExecuteLoadFavItems();
-			}
-        }
-    }
+	}
 }

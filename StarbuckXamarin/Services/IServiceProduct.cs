@@ -10,5 +10,6 @@ namespace StarbuckXamarin.Services
     {
         Task<List<Product>> GetProductAsync();
         Task<bool> ChangeFavoriteItem(string nameProd, bool favProd);
+        Task<List<Product>> FilterFavItems();
     }
 }

@@ -18,5 +18,17 @@ namespace StarbuckXamarin.Views
             InitializeComponent();
             BindingContext = new HomePageViewmodel(Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is HomePageViewmodel viewmodel)
+            {
+                viewmodel.ExecuteLoadFavItems();
+            }
+            {
+
+            }
+        }
     }
 }

@@ -87,5 +87,22 @@ namespace StarbuckXamarin.Services
                 return false;
             }
         }
+
+        public async Task<List<Product>> FilterFavItems()
+        {
+            try
+            {
+                var filteredItems = await GetProductAsync();
+
+                var itemsShow = filteredItems.Where(i => i.ProductFavItem).ToList();
+
+                return itemsShow;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Error Filter FAV ITEMS: {ex.Message}", "ok");
+                return null;
+            }
+        }
     }
 }

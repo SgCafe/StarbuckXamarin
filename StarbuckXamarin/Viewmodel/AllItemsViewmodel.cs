@@ -5,31 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace StarbuckXamarin.Viewmodel
 {
-    public class HomePageViewmodel : BaseViewmodel
+    public class AllItemsViewmodel : BaseViewmodel
     {
         #region properties
         public INavigation Navigation;
-
-        private readonly IServiceProduct _serviceProduct;
+        public readonly IServiceProduct _serviceProduct;
 
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
-            get => _coffeeList; 
-            set => SetProperty(ref _coffeeList, value); 
-        }
-
-        private string _categorySelectorPrimary;
-        public string CategorySelectorPrimary
-        {
-            get => _categorySelectorPrimary;
-            set => SetProperty(ref _categorySelectorPrimary, value);
+            get => _coffeeList;
+            set => SetProperty(ref _coffeeList, value);
         }
 
         private Product _selectedProduct;
@@ -38,42 +29,28 @@ namespace StarbuckXamarin.Viewmodel
             get => _selectedProduct;
             set
             {
-               if(SetProperty(ref _selectedProduct, value) && value != null)
+                if (SetProperty(ref _selectedProduct, value) && value != null)
                 {
                     NavigateToDetailPage(value);
                     SelectedProduct = null;
                 }
             }
         }
-
-        private Product _quality;
-        public Product Quality
-        {
-            get => _quality;
-            set => SetProperty(ref _quality, value);
-        }
-
         #endregion
 
         #region constructor
-        public HomePageViewmodel(INavigation navigation)
+        public AllItemsViewmodel(INavigation navigation)
         {
             _serviceProduct = new ServiceProduct();
-            CategorySelectorPrimary = "All";
-            PopulateList();
-            NavCartCommand = new Command(ExecuteNavCartCommand);
-            AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
-            NavToAllItemsPageCommand = new Command(ExecuteNavToAllItemsPageCommand);
             Navigation = navigation;
+            PopulateList();
+            AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
         }
-
         #endregion
 
         #region commands
-        public ICommand NavCartCommand { get; set; }
         public ICommand AddFavouriteCommand { get; set; }
-        public ICommand CheckChangedCommand { get; set; }
-        public ICommand NavToAllItemsPageCommand { get; set; }
+
         #endregion
 
         #region methods
@@ -94,7 +71,7 @@ namespace StarbuckXamarin.Viewmodel
                         Grande = item.Grande,
                         Venti = item.Venti,
                         ProductFavItem = item.ProductFavItem,
-                        Quality = item.Quality,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        Quality = item.Quality,
                     });
                 }
             }
@@ -104,7 +81,7 @@ namespace StarbuckXamarin.Viewmodel
         {
             if (prod != null)
             {
-                
+
                 string nameProd = prod.Name;
                 bool newFavValue = !prod.ProductFavItem;
 
@@ -119,16 +96,6 @@ namespace StarbuckXamarin.Viewmodel
             }
         }
 
-        public void ExecuteLoadFavItems()
-        {
-            PopulateList();
-        }
-
-        private async void ExecuteNavToAllItemsPageCommand()
-        {
-            await Navigation.PushAsync(new AllItemsPage());
-        }
-
         private async void NavigateToDetailPage(Product product)
         {
             var parameters = new Dictionary<string, object>
@@ -138,11 +105,6 @@ namespace StarbuckXamarin.Viewmodel
 
             DetailPage detailPage = new DetailPage(parameters);
             await Navigation.PushAsync(detailPage);
-        }
-
-        private async void ExecuteNavCartCommand()
-        {
-            await Navigation.PushAsync(new CartPage());
         }
         #endregion
     }

@@ -13,7 +13,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:WalletPage}" />
         </Tab>
         <Tab Icon="fav.png">
-            <ShellContent ContentTemplate="{DataTemplate views:DetailPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:FavPage}" />
         </Tab>
         <Tab Icon="notification.png">
             <ShellContent ContentTemplate="{DataTemplate views:NotificationsPage}" />
