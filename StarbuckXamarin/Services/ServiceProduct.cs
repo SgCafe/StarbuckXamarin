@@ -104,5 +104,40 @@ namespace StarbuckXamarin.Services
                 return null;
             }
         }
+
+        public async Task<bool> SendCartItems(List<Cart> cartItem)
+        {
+            try
+            {
+                foreach(var item in cartItem)
+                {
+                    await Client
+                        .Child("Carrinho")
+                        .PostAsync(item);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Error SendCart : {ex.Message}", "ok");
+                return false;
+            }
+        }
+
+        public async Task<List<Cart>> GetItemsCart()
+        {
+            var items = await Client
+                .Child("Carrinho")
+                .OnceAsync<Cart>();
+
+            return items.Select(c => new Cart
+            {
+                Name = c.Object.Name,
+                Image = c.Object.Image,
+                Price = c.Object.Price,
+                Size = c.Object.Size,
+            }).ToList();
+        }
     }
 }

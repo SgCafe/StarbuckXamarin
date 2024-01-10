@@ -1,8 +1,10 @@
 ﻿using StarbuckXamarin.Models;
 using StarbuckXamarin.Services;
+using StarbuckXamarin.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,16 +19,14 @@ namespace StarbuckXamarin.Viewmodel
         private readonly IServiceProduct _serviceProduct;
 
         private string _sizeSelect;
-
 		public string SizeSelect
         {
 			get => _sizeSelect;
-
             set
             {
                 if (SetProperty(ref _sizeSelect, value) && value != null)
                 {
-                    UpdateValueCoffe();
+                    UpdateValueCoffee(SizeSelect);
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace StarbuckXamarin.Viewmodel
             set => SetProperty(ref _valueCoffe, value);
         }
 
-
+        private List<Cart> _cardItems = new List<Cart>();
         #endregion
 
         #region constructor
@@ -57,16 +57,16 @@ namespace StarbuckXamarin.Viewmodel
 			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
+            AddtoCartCommand = new Command(ExecuteAddtoCartCommandAsync);
             GetValuesParameters(parameters);
-            UpdateValueCoffe();
+            UpdateValueCoffee(SizeSelect);
         }
-
-        
         #endregion
 
         #region commands
         public ICommand BackPageButton { get; set; }
         public ICommand AddFavouriteCommand { get; set; }
+        public ICommand AddtoCartCommand { get; set; }
         #endregion
 
         #region methods
@@ -97,25 +97,50 @@ namespace StarbuckXamarin.Viewmodel
             }
         }
 
-        private void UpdateValueCoffe()
+        private async void ExecuteAddtoCartCommandAsync()
+        {
+            try
+            {
+                _cardItems.Clear();
+
+                double price = UpdateValueCoffee(SizeSelect);
+                var cartItem = new Cart
+                {
+                    Name = ParametersReceived.Name,
+                    Image = ParametersReceived.Image,
+                    Size = SizeSelect,
+                    Price = price
+
+                };
+
+                _cardItems.Add(cartItem);
+                await _serviceProduct.SendCartItems(_cardItems);
+
+                await Navigation.PushAsync(new CartPage());
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error IsSaving", $"Erro: {ex.Message}", "Ok");
+            }
+        }
+
+        private double UpdateValueCoffee(string size)
         {
             if (_parametersReceived != null)
             {
-                switch (SizeSelect)
+                switch (size)
                 {
                     case "Tall":
-                        ValueCoffe = ParametersReceived.ValueTall;
-                        break;
+                        return ValueCoffe = ParametersReceived.ValueTall;
                     case "Grande":
-                        ValueCoffe = ParametersReceived.Grande;
-                        break;
+                        return ValueCoffe = ParametersReceived.Grande;
                     case "Venti":
-                        ValueCoffe = ParametersReceived.Venti;
-                        break;
+                        return ValueCoffe = ParametersReceived.Venti;
                     default:
-                        break;
+                        return 0;
                 }
             }
+            return 0;
         }
 
         private async void ExecuteBackPageButtonCommand()

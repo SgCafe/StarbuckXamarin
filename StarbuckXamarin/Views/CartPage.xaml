@@ -174,7 +174,11 @@
                     FontSize="16"
                     HorizontalOptions="End"
                     Text="Adicionar Mais"
-                    TextColor="{StaticResource Primary}" />
+                    TextColor="{StaticResource Primary}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddMoreItemsCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
 
 
@@ -219,7 +223,7 @@
                                             Grid.Row="0"
                                             FontFamily="PoppinsRegular"
                                             FontSize="16"
-                                            Text="{Binding ValueTall, StringFormat='R$ {00},00'}"
+                                            Text="{Binding Price, StringFormat='{0:c}'}"
                                             TextColor="Black" />
 
                                         <Frame
@@ -231,22 +235,13 @@
                                             WidthRequest="120">
                                             <templates:ButtonAddItem />
                                         </Frame>
-
-
                                     </Grid>
-
-
-
-
                                 </Grid>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-
             </Grid>
-
 
             <Grid Grid.Row="4" VerticalOptions="EndAndExpand">
                 <Button

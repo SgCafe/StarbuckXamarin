@@ -11,5 +11,8 @@ namespace StarbuckXamarin.Services
         Task<List<Product>> GetProductAsync();
         Task<bool> ChangeFavoriteItem(string nameProd, bool favProd);
         Task<List<Product>> FilterFavItems();
+        Task<bool> SendCartItems(List<Cart> cartItem);
+        Task<List<Cart>> GetItemsCart();
+
     }
 }

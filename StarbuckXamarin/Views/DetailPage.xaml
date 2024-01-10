@@ -220,6 +220,7 @@
             <Button
                 Grid.Row="4"
                 BackgroundColor="{StaticResource Primary}"
+                Command="{Binding AddtoCartCommand}"
                 CornerRadius="30"
                 FontFamily="PoppinsRegular"
                 FontSize="20"
