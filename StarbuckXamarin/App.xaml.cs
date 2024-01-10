@@ -1,5 +1,6 @@
 ﻿using StarbuckXamarin.Services;
 using System;
+using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,9 +12,12 @@ namespace StarbuckXamarin
         {
             InitializeComponent();
 
+            CultureInfo cultureInfo = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             MainPage = new MainPage();
             DependencyService.Register<IServiceProduct, ServiceProduct>();
-           
         }
 
         protected override void OnStart()
