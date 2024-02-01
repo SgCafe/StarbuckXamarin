@@ -29,8 +29,8 @@ namespace StarbuckXamarin.Viewmodel
         private ObservableCollection<Product> _coffeeList;
         public ObservableCollection<Product> CoffeeList
         {
-            get => _coffeeList; 
-            set => SetProperty(ref _coffeeList, value); 
+            get => _coffeeList;
+            set => SetProperty(ref _coffeeList, value);
         }
 
         private Product _categorySelector;
@@ -53,7 +53,7 @@ namespace StarbuckXamarin.Viewmodel
             get => _selectedProduct;
             set
             {
-               if(SetProperty(ref _selectedProduct, value) && value != null)
+                if (SetProperty(ref _selectedProduct, value) && value != null)
                 {
                     NavigateToDetailPage(value);
                     SelectedProduct = null;
@@ -74,7 +74,7 @@ namespace StarbuckXamarin.Viewmodel
         public HomePageViewmodel(INavigation navigation)
         {
             _serviceProduct = new ServiceProduct();
-            PopulateList();
+
             LoadCategoriesFilter();
             NavCartCommand = new Command(ExecuteNavCartCommand);
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
@@ -109,7 +109,7 @@ namespace StarbuckXamarin.Viewmodel
                         Grande = item.Grande,
                         Venti = item.Venti,
                         ProductFavItem = item.ProductFavItem,
-                        Quality = item.Quality,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                        Quality = item.Quality,
                     });
                 }
             }
@@ -138,7 +138,7 @@ namespace StarbuckXamarin.Viewmodel
         {
             if (prod != null)
             {
-                
+
                 string nameProd = prod.Name;
                 bool newFavValue = !prod.ProductFavItem;
 

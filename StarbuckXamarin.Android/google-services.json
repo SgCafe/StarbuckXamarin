@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "548068865150",
+    "firebase_url": "https://starbucksxamarin-default-rtdb.firebaseio.com",
+    "project_id": "starbucksxamarin",
+    "storage_bucket": "starbucksxamarin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548068865150:android:acb828f933260bbd50142f",
+        "android_client_info": {
+          "package_name": "com.companyname.starbuckxamarin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548068865150-3vlivhmnk95edeo4brbe299bnj3top3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoZMiawYNDlVA9sJBSBoDEVvj-4jXlpjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548068865150-3vlivhmnk95edeo4brbe299bnj3top3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
