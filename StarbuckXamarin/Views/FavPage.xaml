@@ -104,6 +104,11 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Scale="0.2"
+                Color="Black" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
