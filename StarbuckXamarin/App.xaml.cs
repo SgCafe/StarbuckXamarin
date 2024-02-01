@@ -1,4 +1,6 @@
-﻿using StarbuckXamarin.Services;
+﻿using Plugin.FirebasePushNotification;
+using StarbuckXamarin.Services;
+using StarbuckXamarin.Views;
 using System;
 using System.Globalization;
 using Xamarin.Forms;
@@ -18,6 +20,13 @@ namespace StarbuckXamarin
 
             MainPage = new MainPage();
             DependencyService.Register<IServiceProduct, ServiceProduct>();
+
+            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
+        }
+
+        private void Current_OnTokenRefresh(object source, FirebasePushNotificationTokenEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"Token -> {e.Token}");
         }
 
         protected override void OnStart()
@@ -30,6 +39,12 @@ namespace StarbuckXamarin
 
         protected override void OnResume()
         {
+            base.OnResume();
+            if (App.Current.Properties.ContainsKey("FinishOrderPage"))
+            {
+                MainPage.Navigation.PushAsync(new FinishOrderPage());
+                App.Current.Properties.Remove("FinishOrderPage");
+            };
         }
     }
 }
