@@ -5,13 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:templates="clr-namespace:StarbuckXamarin.Views.Templates"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Shell.NavBarIsVisible="False">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <templates:ButtonAddItem x:Key="ButtonAdd" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,auto,auto,auto">
@@ -29,6 +24,9 @@
                     ColumnDefinitions="auto, auto, *"
                     VerticalOptions="Start">
                     <Frame Margin="20,0,0,10" Style="{StaticResource Elipse}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackHomePageCommand}" />
+                        </Frame.GestureRecognizers>
                         <ImageButton
                             Grid.Column="0"
                             BackgroundColor="Transparent"
@@ -62,7 +60,7 @@
                 RowDefinitions="auto,auto">
                 <Label
                     Grid.Row="0"
-                    Margin="10,30,0,16"
+                    Margin="10,15,0,16"
                     FontAttributes="Bold"
                     FontFamily="RalewayMedium"
                     FontSize="18"
@@ -105,16 +103,6 @@
                                     TextColor="Black"
                                     Time="13:00"
                                     VerticalOptions="Center" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    Margin="0,0,0,3"
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    HorizontalOptions="End"
-                                    Text="Alterar"
-                                    TextColor="{StaticResource Primary}"
-                                    VerticalOptions="Center" />
                             </Grid>
                         </Grid>
                     </Frame>
@@ -125,7 +113,7 @@
                         BorderColor="#DFE4EC"
                         CornerRadius="14"
                         HasShadow="False"
-                        HeightRequest="50">
+                        HeightRequest="80">
                         <Grid
                             Margin="0,5,0,5"
                             ColumnDefinitions="auto,auto,*"
@@ -136,23 +124,36 @@
                                 Grid.Column="0"
                                 HorizontalOptions="Start"
                                 Source="house.png" />
-                            <Label
+                            <Entry
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Margin="10,0,0,0"
+                                Margin="0,-10,0,0"
                                 FontAttributes="Bold"
                                 FontSize="16"
-                                Text="Ipanema, Rio de Janeiro"
-                                TextColor="Black" />
+                                HorizontalOptions="StartAndExpand"
+                                Keyboard="Numeric"
+                                Placeholder="Digite seu cep"
+                                ReturnType="Next"
+                                Text="{Binding CepTxt}"
+                                TextColor="Black"
+                                WidthRequest="300">
+                                <Entry.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding FindCepCommand}" EventName="Unfocused" />
+                                </Entry.Behaviors>
+                            </Entry>
                             <Label
-                                Grid.Row="1"
-                                Grid.Column="2"
+                                Grid.Row="2"
+                                Grid.Column="1"
                                 FontAttributes="Bold"
                                 FontSize="18"
-                                HorizontalOptions="End"
+                                HorizontalOptions="Start"
                                 Text="Alterar"
                                 TextColor="{StaticResource Primary}"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ClearCepCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </Grid>
                     </Frame>
                 </Grid>
@@ -183,13 +184,16 @@
 
 
             <Grid Grid.Row="3" Margin="20,20,20,0">
-                <CollectionView ItemsSource="{Binding CoffeeList}">
+                <CollectionView x:Name="mCollectionView" ItemsSource="{Binding CoffeeList}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions=" auto, auto" RowDefinitions="auto, auto, auto">
+                            <Grid
+                                Padding="5"
+                                ColumnDefinitions=" auto, auto, auto"
+                                RowDefinitions="auto, auto, auto">
                                 <Frame
                                     Grid.Column="0"
                                     Padding="10"
@@ -202,15 +206,16 @@
                                 </Frame>
                                 <Grid
                                     Grid.Column="1"
-                                    Margin="20,0,0,0"
+                                    Margin="0,0,0,0"
                                     ColumnDefinitions="auto"
-                                    RowDefinitions="auto, auto">
+                                    RowDefinitions="auto, auto"
+                                    VerticalOptions="Center">
                                     <Label
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         FontAttributes="Bold"
                                         FontFamily="RalewayMedium"
-                                        FontSize="18"
+                                        FontSize="16"
                                         Text="{Binding Name}"
                                         TextColor="Black" />
                                     <Grid
@@ -222,21 +227,59 @@
                                         <Label
                                             Grid.Row="0"
                                             FontFamily="PoppinsRegular"
-                                            FontSize="16"
-                                            Text="{Binding Price, StringFormat='{0:c}'}"
+                                            FontSize="14"
+                                            Text="{Binding TotalValue, StringFormat='{0:C}'}"
                                             TextColor="Black" />
 
-                                        <Frame
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Padding="0"
-                                            BackgroundColor="{StaticResource Gray100}"
-                                            CornerRadius="20"
-                                            WidthRequest="120">
-                                            <templates:ButtonAddItem />
-                                        </Frame>
+
+                                        <Grid Grid.Row="1" Grid.Column="0">
+                                            <Frame
+                                                Padding="0"
+                                                CornerRadius="20"
+                                                HasShadow="False">
+                                                <Grid BackgroundColor="White" ColumnDefinitions="*,*,*">
+                                                    <ImageButton
+                                                        Grid.Column="0"
+                                                        Padding="10"
+                                                        BackgroundColor="{StaticResource Primary}"
+                                                        Command="{Binding Path=BindingContext.CountLessCommand, Source={x:Reference mCollectionView}}"
+                                                        CommandParameter="{Binding .}"
+                                                        CornerRadius="17"
+                                                        HorizontalOptions="Start"
+                                                        Source="substract" />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        FontSize="20"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        Text="{Binding Quantity}"
+                                                        TextColor="Black"
+                                                        VerticalOptions="Center" />
+
+                                                    <ImageButton
+                                                        Grid.Column="2"
+                                                        Padding="10"
+                                                        BackgroundColor="{StaticResource Primary}"
+                                                        Command="{Binding Path=BindingContext.CountMoreCommand, Source={x:Reference mCollectionView}}"
+                                                        CommandParameter="{Binding .}"
+                                                        CornerRadius="17"
+                                                        HorizontalOptions="End"
+                                                        Source="add.png" />
+                                                </Grid>
+                                            </Frame>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
+
+                                <Grid Grid.Column="3" HorizontalOptions="EndAndExpand">
+                                    <ImageButton
+                                        Padding="10"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Path=BindingContext.DeleteItemCommand, Source={x:Reference mCollectionView}}"
+                                        CommandParameter="{Binding .}"
+                                        Source="trash.png"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -248,9 +291,11 @@
                     Margin="20,0,20,10"
                     Padding="0"
                     BackgroundColor="{StaticResource Primary}"
+                    Command="{Binding FinishOrderCommand}"
                     CornerRadius="4"
                     HeightRequest="60"
                     Text="Finalizar"
+                    TextColor="White"
                     VerticalOptions="End"
                     WidthRequest="30" />
             </Grid>
