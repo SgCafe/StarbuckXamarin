@@ -35,7 +35,6 @@ namespace StarbuckXamarin.Viewmodel
         }
 
         private double _totalItemValue;
-
         public double TotalItemValue
         {
             get => _totalItemValue;
@@ -56,7 +55,7 @@ namespace StarbuckXamarin.Viewmodel
             CountLessCommand = new Command<Cart>(ExecuteCountLessCommand);
             CountMoreCommand = new Command<Cart>(ExecuteCountMoreCommand);
             DeleteItemCommand = new Command<Cart>(ExecuteDeleteItemCommand);
-            FinishOrderCommand = new Command(ExecuteFinishOrderCommand);
+            FinishOrderCommand = new Command<Address>(ExecuteFinishOrderCommand);
             Navigation = navigation;
         }
         #endregion
@@ -199,15 +198,20 @@ namespace StarbuckXamarin.Viewmodel
         }
 
 
-        private async void ExecuteFinishOrderCommand()
+        private async void ExecuteFinishOrderCommand(Address address)
         {
             try
             {
                 var itemCart = await _serviceProduct.GetItemsCart();
 
-                if (itemCart.Count != 0 && CepTxt != null)
+                if (itemCart.Count != 0 && !string.IsNullOrEmpty(CepTxt))
                 {
-                    await Navigation.PushAsync(new FinishOrderPage());
+                    var finishOrderPage = new FinishOrderPage();
+                    finishOrderPage.BindingContext = new FinishOrderViewmodel
+                    {
+                        SelectedCep = CepTxt
+                    };
+                    await Navigation.PushAsync(finishOrderPage);
                 }
                 else
                 {

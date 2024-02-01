@@ -37,11 +37,14 @@ namespace StarbuckXamarin.Viewmodel
             get => _statusPedido;
             set => SetProperty(ref _statusPedido, value);
         }
+
+        public string SelectedCep { get; set; }
         #endregion
 
         #region constructor
         public FinishOrderViewmodel()
         {
+            Console.WriteLine($"SelectedCep in FinishOrderViewmodel: {SelectedCep}");
             Barra1Color = Color.Green;
             Barra2Color = Barra3Color = Color.Gray;
             StatusPedido = "Aguardando restaurante";
