@@ -13,6 +13,9 @@ namespace StarbuckXamarin.Services
         Task<List<Product>> FilterFavItems();
         Task<bool> SendCartItems(List<Cart> cartItem);
         Task<List<Cart>> GetItemsCart();
+        Task<bool> DeleteItemCart(string id);
+        Task CountLessItemCart(string firebaseKey, int count);
+        Task CountMoreItemCart(string firebaseKey, int count);
 
     }
 }

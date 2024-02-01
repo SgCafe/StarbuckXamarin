@@ -76,14 +76,14 @@ namespace StarbuckXamarin.Services
 
                     return true;
                 }
-                else 
-                { 
-                    return false; 
+                else
+                {
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                 await Shell.Current.DisplayAlert("Error",$"Error changeFavoriteItem: {ex.Message}", "ok");
+                await Shell.Current.DisplayAlert("Error", $"Error changeFavoriteItem: {ex.Message}", "ok");
                 return false;
             }
         }
@@ -109,20 +109,40 @@ namespace StarbuckXamarin.Services
         {
             try
             {
-                foreach(var item in cartItem)
-                {
-                    await Client
-                        .Child("Carrinho")
-                        .PostAsync(item);
-                }
+                var cartItemRef = Client.Child("Carrinho");
 
+                foreach (var item in cartItem)
+                {
+                    if (string.IsNullOrEmpty(item.FirebaseKey))
+                    {
+                        item.FirebaseKey = GenerateCartKey();
+                    }
+
+                    var existingItemRef = cartItemRef.Child(item.FirebaseKey);
+
+                    if (existingItemRef != null)
+                    {
+                        await existingItemRef.PutAsync(item);
+                    }
+                    else
+                    {
+                        await cartItemRef.Child(item.FirebaseKey).PutAsync(item);
+                    }
+                }
                 return true;
+
             }
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error", $"Error SendCart : {ex.Message}", "ok");
+
                 return false;
             }
+        }
+
+        private string GenerateCartKey()
+        {
+            return Guid.NewGuid().ToString();
         }
 
         public async Task<List<Cart>> GetItemsCart()
@@ -137,7 +157,86 @@ namespace StarbuckXamarin.Services
                 Image = c.Object.Image,
                 Price = c.Object.Price,
                 Size = c.Object.Size,
+                Quantity = c.Object.Quantity,
+                TotalValue = c.Object.TotalValue,
+                FirebaseKey = c.Key,
             }).ToList();
+        }
+
+        public async Task<bool> DeleteItemCart(string firebaseKey)
+        {
+            try
+            {
+                var key = $"Carrinho/{firebaseKey}";
+
+                await Client
+                    .Child(key)
+                    .DeleteAsync();
+
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting cart item: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task CountLessItemCart(string firebaseKey, int count)
+        {
+            try
+            {
+                var key = $"Carrinho/{firebaseKey}/Quantity";
+
+                var quantityRef = Client.Child(key);
+                await quantityRef.PutAsync(count);
+
+                var itemRef = Client.Child($"Carrinho/{firebaseKey}");
+                var snapshot = await itemRef.OnceSingleAsync<Cart>();
+                await UpdateTotalValue(firebaseKey, snapshot);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating quantity less of cart item: {ex.Message}");
+            }
+        }
+
+        private async Task UpdateTotalValue(string firebaseKey, Cart cartItem)
+        {
+            try
+            {
+                var key = $"Carrinho/{firebaseKey}/TotalValue";
+                var updateValue = Client.Child(key);
+                var totalValue = cartItem.Price * cartItem.Quantity;
+                await updateValue.PutAsync(totalValue);
+
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Error UPDATE TOTAL VALUE : {ex.Message}", "ok");
+            }
+        }
+
+        public async Task CountMoreItemCart(string firebaseKey, int count)
+        {
+            try
+            {
+                var key = $"Carrinho/{firebaseKey}/Quantity";
+
+                var quantityRef = Client.Child(key);
+                await quantityRef.PutAsync(count);
+
+                var itemRef = Client.Child($"Carrinho/{firebaseKey}");
+                var snapshot = await itemRef.OnceSingleAsync<Cart>();
+                await UpdateTotalValue(firebaseKey, snapshot);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating quantity more of cart item: {ex.Message}");
+            }
         }
     }
 }
