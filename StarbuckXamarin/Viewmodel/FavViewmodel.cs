@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace StarbuckXamarin.Viewmodel
@@ -16,8 +18,8 @@ namespace StarbuckXamarin.Viewmodel
         public INavigation Navigation;
         public readonly IServiceProduct _serviceProduct;
 
-        private ObservableCollection<Product> _coffeeList;
-        public ObservableCollection<Product> CoffeeList
+        private ObservableRangeCollection<Product> _coffeeList;
+        public ObservableRangeCollection<Product> CoffeeList
         {
             get => _coffeeList;
             set => SetProperty(ref _coffeeList, value);
@@ -36,6 +38,14 @@ namespace StarbuckXamarin.Viewmodel
                 }
             }
         }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+        private bool _isDataLoaded = false;
         #endregion
 
         #region constructor
@@ -43,8 +53,8 @@ namespace StarbuckXamarin.Viewmodel
         {
             _serviceProduct = new ServiceProduct();
             Navigation = navigation;
-            PopulateList();
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
+            PopulateList();
         }
         #endregion
 
@@ -58,7 +68,7 @@ namespace StarbuckXamarin.Viewmodel
             var coffee = await _serviceProduct.FilterFavItems();
             if (coffee != null)
             {
-                CoffeeList = new ObservableCollection<Product>();
+                CoffeeList = new ObservableRangeCollection<Product>();
                 foreach (var item in coffee)
                 {
                     CoffeeList.Add(new Product()
@@ -76,9 +86,29 @@ namespace StarbuckXamarin.Viewmodel
             }
         }
 
-        public void ExecuteLoadFavItems()
+        public async void ExecuteLoadFavItems()
         {
-            PopulateList();
+            try
+            {
+                IsBusy = true;
+
+                var updatedCoffeeList = await _serviceProduct.FilterFavItems();
+
+                if (updatedCoffeeList != null)
+                {
+                    // Remover todos os itens existentes e adicionar os atualizados
+                    CoffeeList.Clear();
+                    CoffeeList.AddRange(updatedCoffeeList);
+                }
+            }
+            catch (Exception)
+            {
+                // Tratar exceções conforme necessário
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async void ExecuteAddFavouriteCommand(Product prod)
@@ -94,6 +124,8 @@ namespace StarbuckXamarin.Viewmodel
                 if (changeFavItem)
                 {
                     prod.ProductFavItem = newFavValue;
+                    CoffeeList.Remove(prod);
+                    CoffeeList.Add(prod);
 
                     System.Diagnostics.Debug.WriteLine("---------> item " + prod.Name + " is favourited or not: " + prod.ProductFavItem);
                 }
