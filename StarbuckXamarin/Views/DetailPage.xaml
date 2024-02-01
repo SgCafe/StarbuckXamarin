@@ -3,15 +3,7 @@
     x:Class="StarbuckXamarin.Views.DetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:templateButton="clr-namespace:StarbuckXamarin.Views.Templates"
     Shell.NavBarIsVisible="False">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <templateButton:ButtonAddItem x:Key="buttonAddItemAA" />
-        </ResourceDictionary>
-
-    </ContentPage.Resources>
 
     <Grid Padding="15,0,15,0" RowDefinitions="auto, 250">
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="auto">
@@ -64,16 +56,48 @@
                 CornerRadius="15"
                 HasShadow="False">
                 <Image Margin="0,0,0,30" Source="{Binding ParametersReceived.Image}" />
-
-
             </Frame>
 
-            <templateButton:ButtonAddItem
+
+            <Grid
                 Margin="0,0,0,20"
                 HeightRequest="35"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
-                WidthRequest="110" />
+                WidthRequest="110">
+                <Frame
+                    Padding="0"
+                    CornerRadius="20"
+                    HasShadow="False">
+                    <Grid BackgroundColor="White" ColumnDefinitions="*,*,*">
+                        <ImageButton
+                            Grid.Column="0"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Command="{Binding CountLessCommand}"
+                            CornerRadius="17"
+                            HorizontalOptions="Start"
+                            Source="substract" />
+                        <Label
+                            x:Name="txtButton"
+                            Grid.Column="1"
+                            FontSize="20"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="{Binding QuantityChange}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+
+                        <ImageButton
+                            Grid.Column="2"
+                            Padding="10"
+                            BackgroundColor="{StaticResource Primary}"
+                            Command="{Binding CountMoreCommand}"
+                            CornerRadius="17"
+                            HorizontalOptions="End"
+                            Source="add.png" />
+                    </Grid>
+                </Frame>
+            </Grid>
 
         </Grid>
 
@@ -212,7 +236,7 @@
                         FontFamily="PoppinsRegular"
                         FontSize="24"
                         HorizontalOptions="Start"
-                        Text="{Binding ValueCoffe, StringFormat='{0:c}'}"
+                        Text="{Binding TotalValue, StringFormat='{0:c}'}"
                         TextColor="{StaticResource Primary}"
                         VerticalOptions="Center" />
                 </Grid>

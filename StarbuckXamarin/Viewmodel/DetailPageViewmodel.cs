@@ -3,6 +3,7 @@ using StarbuckXamarin.Services;
 using StarbuckXamarin.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -43,10 +44,38 @@ namespace StarbuckXamarin.Viewmodel
         public double ValueCoffe
         {
             get => _valueCoffe;
-            set => SetProperty(ref _valueCoffe, value);
+            set
+            {
+                if (SetProperty(ref _valueCoffe, value))
+                {
+                    RecalculateTotalValue();
+                }
+            }
         }
 
         private List<Cart> _cardItems = new List<Cart>();
+
+        private int _quantityChange;
+        public int QuantityChange
+        {
+            get => _quantityChange;
+            set
+            {
+                if(SetProperty(ref _quantityChange, value))
+                {
+                    RecalculateTotalValue();
+                }
+            }
+        }
+
+        private double _totalValue;
+        public double TotalValue
+        {
+            get => _totalValue;
+            set => SetProperty(ref _totalValue, value);
+        }
+
+
         #endregion
 
         #region constructor
@@ -54,10 +83,12 @@ namespace StarbuckXamarin.Viewmodel
 		{
             _serviceProduct = new ServiceProduct();
             Navigation = navigation;
-			SizeSelect = "Tall";
             BackPageButton = new Command(ExecuteBackPageButtonCommand);
             AddFavouriteCommand = new Command<Product>(ExecuteAddFavouriteCommand);
             AddtoCartCommand = new Command(ExecuteAddtoCartCommandAsync);
+            CountLessCommand = new Command(ExecuteCountLessCommand);
+            CountMoreCommand = new Command(ExecuteCountMoreCommand);
+
             GetValuesParameters(parameters);
             UpdateValueCoffee(SizeSelect);
         }
@@ -67,6 +98,8 @@ namespace StarbuckXamarin.Viewmodel
         public ICommand BackPageButton { get; set; }
         public ICommand AddFavouriteCommand { get; set; }
         public ICommand AddtoCartCommand { get; set; }
+        public ICommand CountLessCommand { get; set; }
+        public ICommand CountMoreCommand { get; set; }
         #endregion
 
         #region methods
@@ -76,13 +109,16 @@ namespace StarbuckXamarin.Viewmodel
             {
                 ParametersReceived = (Product)category;
             }
+            SizeSelect = "Tall";
+            QuantityChange = 1;
+            UpdateValueCoffee(SizeSelect);
+            RecalculateTotalValue();
         }
 
         private async void ExecuteAddFavouriteCommand(Product prod)
         {
             if (prod != null)
             {
-
                 string nameProd = prod.Name;
                 bool newFavValue = !prod.ProductFavItem;
 
@@ -103,18 +139,35 @@ namespace StarbuckXamarin.Viewmodel
             {
                 _cardItems.Clear();
 
-                double price = UpdateValueCoffee(SizeSelect);
-                var cartItem = new Cart
+                var cartItems = await _serviceProduct.GetItemsCart();
+                var existingCartItem = cartItems.FirstOrDefault(item => item.Name == ParametersReceived.Name && item.Size == SizeSelect);
+
+                if (existingCartItem != null)
                 {
-                    Name = ParametersReceived.Name,
-                    Image = ParametersReceived.Image,
-                    Size = SizeSelect,
-                    Price = price
+                    existingCartItem.Quantity += QuantityChange;
+                    //existingCartItem.TotalValue = existingCartItem.Price * existingCartItem.Quantity;
+                }
+                else
+                {
+                    double price = UpdateValueCoffee(SizeSelect);
+                    var cartItem = new Cart
+                    {
+                        Name = ParametersReceived.Name,
+                        Image = ParametersReceived.Image,
+                        Size = SizeSelect,
+                        Price = price,
+                        Quantity = QuantityChange,
+                        TotalValue = price * QuantityChange
+                    };
 
-                };
+                    _cardItems.Add(cartItem);
+                }
 
-                _cardItems.Add(cartItem);
-                await _serviceProduct.SendCartItems(_cardItems);
+
+
+                var firebaseKey = await _serviceProduct.SendCartItems(_cardItems);
+
+                Console.WriteLine($"Item added to cart with Firebase key: {firebaseKey}");
 
                 await Navigation.PushAsync(new CartPage());
             }
@@ -131,16 +184,41 @@ namespace StarbuckXamarin.Viewmodel
                 switch (size)
                 {
                     case "Tall":
-                        return ValueCoffe = ParametersReceived.ValueTall;
+                        ValueCoffe = ParametersReceived.ValueTall;
+                        break;
                     case "Grande":
-                        return ValueCoffe = ParametersReceived.Grande;
+                        ValueCoffe = ParametersReceived.Grande;
+                        break;
                     case "Venti":
-                        return ValueCoffe = ParametersReceived.Venti;
+                        ValueCoffe = ParametersReceived.Venti;
+                        break;
                     default:
-                        return 0;
+                        ValueCoffe = ParametersReceived.ValueTall; 
+                        break;
                 }
+                return ValueCoffe;
             }
             return 0;
+        }
+
+        private void RecalculateTotalValue()
+        {
+            TotalValue = QuantityChange * UpdateValueCoffee(SizeSelect);
+        }
+
+        private void ExecuteCountLessCommand()
+        {
+            if (QuantityChange != 1)
+            {
+                QuantityChange--;
+                RecalculateTotalValue();
+            }
+        }
+
+        private void ExecuteCountMoreCommand()
+        {
+            QuantityChange++;
+            RecalculateTotalValue();
         }
 
         private async void ExecuteBackPageButtonCommand()
