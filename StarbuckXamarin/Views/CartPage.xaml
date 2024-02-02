@@ -100,7 +100,7 @@
                                     CharacterSpacing="0"
                                     FontAttributes="Bold"
                                     TextColor="Black"
-                                    Time="13:00"
+                                    Time="{Binding SelectedTime}"
                                     VerticalOptions="Center" />
                             </Grid>
                         </Grid>

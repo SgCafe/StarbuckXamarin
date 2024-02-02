@@ -41,6 +41,14 @@ namespace StarbuckXamarin.Viewmodel
             set => SetProperty(ref _totalItemValue, value);
         }
 
+        private TimeSpan _selectedTime;
+        public TimeSpan SelectedTime
+        {
+            get => _selectedTime;
+            set => SetProperty(ref _selectedTime, value);
+        }
+
+
         #endregion
 
         #region constructor
@@ -55,7 +63,7 @@ namespace StarbuckXamarin.Viewmodel
             CountLessCommand = new Command<Cart>(ExecuteCountLessCommand);
             CountMoreCommand = new Command<Cart>(ExecuteCountMoreCommand);
             DeleteItemCommand = new Command<Cart>(ExecuteDeleteItemCommand);
-            FinishOrderCommand = new Command<Address>(ExecuteFinishOrderCommand);
+            FinishOrderCommand = new Command(ExecuteFinishOrderCommand);
             Navigation = navigation;
         }
         #endregion
@@ -198,7 +206,7 @@ namespace StarbuckXamarin.Viewmodel
         }
 
 
-        private async void ExecuteFinishOrderCommand(Address address)
+        private async void ExecuteFinishOrderCommand()
         {
             try
             {
@@ -209,7 +217,8 @@ namespace StarbuckXamarin.Viewmodel
                     var finishOrderPage = new FinishOrderPage();
                     finishOrderPage.BindingContext = new FinishOrderViewmodel
                     {
-                        SelectedCep = CepTxt
+                        SelectedCep = CepTxt,
+                        SelectedTime = SelectedTime
                     };
                     await Navigation.PushAsync(finishOrderPage);
                 }

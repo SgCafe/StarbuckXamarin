@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarbuckXamarin.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,27 @@ namespace StarbuckXamarin.Viewmodel
         }
 
         public string SelectedCep { get; set; }
+
+        private TimeSpan _selectedTime;
+        public TimeSpan SelectedTime
+        {
+            get => _selectedTime;
+            set
+            {
+                SetProperty(ref _selectedTime, value);
+                DeliveryForecast = FormatDeliveryForecast(value);
+            }
+        }
+
+        private string _deliveryForecast;
+        public string DeliveryForecast
+        {
+            get => _deliveryForecast;
+            set => SetProperty(ref _deliveryForecast, value);
+            
+        }
+
+
         #endregion
 
         #region constructor
@@ -48,9 +70,10 @@ namespace StarbuckXamarin.Viewmodel
             Barra1Color = Color.Green;
             Barra2Color = Barra3Color = Color.Gray;
             StatusPedido = "Aguardando restaurante";
-
+            DeliveryForecast = FormatDeliveryForecast(SelectedTime);
             Task.Run(async () => await AnimateBars());
         }
+
         #endregion
 
         #region commands
@@ -58,6 +81,20 @@ namespace StarbuckXamarin.Viewmodel
         #endregion
 
         #region methods
+
+        private string FormatDeliveryForecast(TimeSpan selectedTime)
+        {
+            TimeSpan horarioInicial = selectedTime;
+
+            TimeSpan horarioFinal = horarioInicial.Add(TimeSpan.FromMinutes(50));
+
+            string horaInicialFormatada = horarioInicial.ToString("hh\\:mm");
+            string horaFinalFormatada = horarioFinal.ToString("hh\\:mm");
+
+            string previsaoEntregaFormatada = $"{horaInicialFormatada} - {horaFinalFormatada}";
+            return previsaoEntregaFormatada;
+        }
+
         private async Task AnimateBars()
         {
             while (true)

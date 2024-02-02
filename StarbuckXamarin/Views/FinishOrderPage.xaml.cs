@@ -63,7 +63,7 @@ namespace StarbuckXamarin.Views
 
                             var mapPosition = new Position(latitude, longitude);
                             var mapSpan = MapSpan.FromCenterAndRadius(mapPosition, Distance.FromMiles(0.5));
-                            MyMap.HeightRequest = 300;
+                            MyMap.HeightRequest = 350;
                             MyMap.WidthRequest = 300;
                             MyMap.IsShowingUser = true;
                             MyMap.MoveToRegion(mapSpan);
